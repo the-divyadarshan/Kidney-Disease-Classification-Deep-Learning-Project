@@ -1,0 +1,15 @@
+artifact_uri: file:///E:/KrishNair/Kidney_Disease_Classification_Deep_Learning_Project/mlruns/0/d9a773492f064cf4ba850b3dc9c87093/artifacts
+end_time: 1789155747946
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: d9a773492f064cf4ba850b3dc9c87093
+run_name: masked-snake-835
+run_uuid: d9a773492f064cf4ba850b3dc9c87093
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1789155710193
+status: 3
+tags: []
+user_id: PC

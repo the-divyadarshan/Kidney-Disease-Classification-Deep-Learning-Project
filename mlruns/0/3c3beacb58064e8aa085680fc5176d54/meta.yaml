@@ -1,0 +1,15 @@
+artifact_uri: file:///E:/KrishNair/Kidney_Disease_Classification_Deep_Learning_Project/mlruns/0/3c3beacb58064e8aa085680fc5176d54/artifacts
+end_time: 1789161273770
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 3c3beacb58064e8aa085680fc5176d54
+run_name: mysterious-steed-678
+run_uuid: 3c3beacb58064e8aa085680fc5176d54
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1789161254321
+status: 3
+tags: []
+user_id: PC
