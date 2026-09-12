@@ -1,0 +1,15 @@
+artifact_uri: file:///E:/KrishNair/Kidney_Disease_Classification_Deep_Learning_Project/mlruns/0/69fbccb9b7814924b8dbaed3603f553a/artifacts
+end_time: 1789218334988
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 69fbccb9b7814924b8dbaed3603f553a
+run_name: silent-frog-652
+run_uuid: 69fbccb9b7814924b8dbaed3603f553a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1789218277409
+status: 3
+tags: []
+user_id: PC
