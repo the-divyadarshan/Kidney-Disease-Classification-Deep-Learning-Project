@@ -1,0 +1,15 @@
+artifact_uri: file:///E:/KrishNair/Kidney_Disease_Classification_Deep_Learning_Project/mlruns/0/0d1ab83cb6ab49e78b0b4e3d6f584c07/artifacts
+end_time: 1789168032566
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 0d1ab83cb6ab49e78b0b4e3d6f584c07
+run_name: brawny-shoat-447
+run_uuid: 0d1ab83cb6ab49e78b0b4e3d6f584c07
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1789168007603
+status: 3
+tags: []
+user_id: PC
