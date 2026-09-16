@@ -1,234 +1,3159 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>cnncls</title>
-	<link rel="shortcut icon"
-        href="data:image/png;base64,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" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<style>
-		body{background-color: #eff2f9;}
-		.iupload h3{color: #1b2d6b;font-size: 30px;font-weight: 700;}
-		.img-part{height:300px;width:300px;margin:0px auto;}
-		.image-part{height:300px;width:300px;border:1px solid #1b2d6b;}
-		.image-part img{position:absolute;height: 300px;width:300px;display:none;padding:5px;}
-		.image-part #video{display:block;height: 300px;width:300px;padding:5px;}
-		.res-part{border:1px solid #dedede;margin-left:20px;height: 310px;width:100%;padding:5px;margin:0px auto;overflow:auto;}
-		.res-part2{border:1px solid #dedede;height: 310px;width:100%;padding:5px;margin:0px auto;}
-		.resp-img{height: 298px;width: 233px;margin:0px auto;}
-		.jsonRes{margin-left:30px;}
-		#send{cursor:pointer;}
-		.btn-part{width:325px;}
-		textarea,
-		select,
-		.form-control,
-		.custom-select,
-		button.btn,
-		.btn-primary,
-		input[type="text"],
-		input[type="url"],
-		.uneditable-input{
-			border: 1px solid #363e75;
-			outline: 0 !important;
-			border-radius:0px;
-			box-shadow: none;
-		   -webkit-box-shadow: none;
-		   -moz-box-shadow: none;
-		   -moz-transition: none;
-		   -webkit-transition: none;
-		}
-		textarea:focus,
-		select:focus,
-		.form-control:focus,
-		.btn:focus,
-		.btn-primary:focus,
-		.custom-select:focus,
-		input[type="text"]:focus,
-		.uneditable-input:focus{
-			border: 1px solid #007bff;
-			outline: 0 !important;
-			border-radius:0px;
-			box-shadow: none;
-		   -webkit-box-shadow: none;
-		   -moz-box-shadow: none;
-		   -moz-transition: none;
-		   -webkit-transition: none;
-		}
-		#loading {
-			position: fixed;
-			left: 0px;
-			top: 0px;
-			width: 100%;
-			height: 100%;
-			z-index: 9999999999;
-			overflow: hidden;
-			background: rgba(255, 255, 255, 0.7);
-		}
-		.loader {
-			border: 8px solid #f3f3f3;
-			border-top: 8px solid #363e75;
-			border-radius: 50%;
-			width: 60px;
-			height: 60px;
-			left: 50%;
-			margin-left: -4em;
-			display: block;
-			animation: spin 2s linear infinite;
-		}
-		.loader,
-		.loader:after {display: block;position: absolute;top: 50%;margin-top: -4.05em;}
-		@keyframes spin {
-			0% {
-				transform: rotate(0deg);
-			}
-			100% {
-				transform: rotate(360deg);
-			}
-		}
-		.right-part{border:1px solid #dedede;padding:5px;}
-		.logo{position:absolute;right:0px;bottom:0px;margin-right:30px;margin-bottom:30px;}
-	</style>
+
+    <title>KidneyVision AI | Kidney Disease Classification</title>
+
+    <link rel="icon" href="data:,">
+
+    <!-- Bootstrap -->
+    <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    >
+
+    <!-- Google Font -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <style>
+
+        /* =========================================================
+           GLOBAL
+        ========================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+
+            margin: 0;
+
+            font-family: "Inter", sans-serif;
+
+            color: #ffffff;
+
+            min-height: 100vh;
+
+            background:
+
+                radial-gradient(
+                    circle at 10% 10%,
+                    rgba(99, 102, 241, 0.18),
+                    transparent 30%
+                ),
+
+                radial-gradient(
+                    circle at 90% 15%,
+                    rgba(14, 165, 233, 0.14),
+                    transparent 30%
+                ),
+
+                radial-gradient(
+                    circle at 50% 90%,
+                    rgba(168, 85, 247, 0.10),
+                    transparent 35%
+                ),
+
+                #060914;
+        }
+
+
+        .page-wrapper {
+
+            min-height: 100vh;
+
+            display: flex;
+
+            flex-direction: column;
+        }
+
+
+        /* =========================================================
+           NAVBAR
+        ========================================================== */
+
+        .navbar-custom {
+
+            padding: 16px 0;
+
+            background: rgba(6, 9, 20, 0.82);
+
+            backdrop-filter: blur(20px);
+
+            -webkit-backdrop-filter: blur(20px);
+
+            border-bottom:
+                1px solid rgba(255, 255, 255, 0.07);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+        }
+
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            color: #ffffff !important;
+
+            text-decoration: none !important;
+        }
+
+
+        .brand-logo {
+
+            width: 44px;
+
+            height: 44px;
+
+            border-radius: 14px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            margin-right: 12px;
+
+            font-size: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6366f1,
+                    #8b5cf6
+                );
+
+            box-shadow:
+                0 8px 30px
+                rgba(99, 102, 241, 0.35);
+        }
+
+
+        .brand-name {
+
+            font-size: 18px;
+
+            font-weight: 800;
+
+            letter-spacing: -0.5px;
+        }
+
+
+        .brand-name span {
+
+            color: #818cf8;
+        }
+
+
+        .nav-center {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+        }
+
+
+        .nav-pill {
+
+            padding: 8px 13px;
+
+            border-radius: 30px;
+
+            color: #8d98ad;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid rgba(255,255,255,0.06);
+        }
+
+
+        .nav-pill i {
+
+            color: #818cf8;
+
+            margin-right: 5px;
+        }
+
+
+        .nav-status {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding: 8px 13px;
+
+            border-radius: 30px;
+
+            color: #86efac;
+
+            background:
+                rgba(34, 197, 94, 0.07);
+
+            border:
+                1px solid rgba(34, 197, 94, 0.16);
+
+            font-size: 10px;
+
+            font-weight: 700;
+        }
+
+
+        .status-dot {
+
+            width: 7px;
+
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #22c55e;
+
+            box-shadow:
+                0 0 12px #22c55e;
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================== */
+
+        .hero {
+
+            padding: 70px 0 52px;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+
+        .hero-content {
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        .hero-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 8px 15px;
+
+            border-radius: 30px;
+
+            background:
+                rgba(99, 102, 241, 0.08);
+
+            border:
+                1px solid rgba(129, 140, 248, 0.20);
+
+            color: #a5b4fc;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 20px;
+        }
+
+
+        .hero h1 {
+
+            max-width: 900px;
+
+            font-size:
+                clamp(42px, 6vw, 70px);
+
+            line-height: 1.02;
+
+            font-weight: 800;
+
+            letter-spacing: -4px;
+
+            margin: 0;
+        }
+
+
+        .gradient-text {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #818cf8,
+                    #c084fc,
+                    #38bdf8
+                );
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+
+            background-clip: text;
+        }
+
+
+        .hero-description {
+
+            max-width: 680px;
+
+            color: #8c96aa;
+
+            font-size: 14px;
+
+            line-height: 1.8;
+
+            margin-top: 22px;
+        }
+
+
+        .hero-stats {
+
+            display: flex;
+
+            gap: 9px;
+
+            margin-top: 27px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .hero-stat {
+
+            padding: 10px 14px;
+
+            border-radius: 12px;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid rgba(255,255,255,0.06);
+
+            color: #9ca7bb;
+
+            font-size: 10px;
+
+            font-weight: 600;
+        }
+
+
+        .hero-stat i {
+
+            color: #818cf8;
+
+            margin-right: 6px;
+        }
+
+
+        /* =========================================================
+           MAIN APPLICATION
+        ========================================================== */
+
+        .main-section {
+
+            padding-bottom: 65px;
+        }
+
+
+        .glass-card {
+
+            background:
+                rgba(13, 18, 34, 0.75);
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            border-radius: 28px;
+
+            box-shadow:
+                0 30px 90px rgba(0,0,0,0.35),
+
+                inset 0 1px 0
+                rgba(255,255,255,0.04);
+
+            backdrop-filter: blur(20px);
+
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+
+        .application-card {
+
+            padding: 28px;
+        }
+
+
+        .section-label {
+
+            color: #818cf8;
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            letter-spacing: 1.5px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 7px;
+        }
+
+
+        .section-title {
+
+            font-size: 21px;
+
+            font-weight: 700;
+
+            margin-bottom: 5px;
+        }
+
+
+        .section-subtitle {
+
+            color: #737e94;
+
+            font-size: 11px;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* =========================================================
+           UPLOAD BOX
+        ========================================================== */
+
+        .upload-box {
+
+            width: 100%;
+
+            height: 420px;
+
+            border-radius: 21px;
+
+            border:
+                1.5px dashed
+                rgba(129,140,248,0.28);
+
+            background:
+
+                radial-gradient(
+                    circle at center,
+                    rgba(99,102,241,0.08),
+                    transparent 65%
+                ),
+
+                rgba(3,7,18,0.40);
+
+            position: relative;
+
+            overflow: hidden;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            transition: 0.3s ease;
+        }
+
+
+        .upload-box.dragover {
+
+            border-color: #818cf8;
+
+            background:
+                rgba(99,102,241,0.12);
+
+            transform: scale(1.005);
+        }
+
+
+        /* =========================================================
+           HIDE NATIVE FILE INPUT
+        ========================================================== */
+
+        #fileinput {
+
+            display: none !important;
+        }
+
+
+        /* =========================================================
+           HIDE UNUSED VIDEO/CANVAS
+        ========================================================== */
+
+        #video,
+        #canvas {
+
+            display: none !important;
+        }
+
+
+        /* =========================================================
+           UPLOAD PLACEHOLDER
+        ========================================================== */
+
+        .upload-placeholder {
+
+            text-align: center;
+
+            padding: 25px;
+        }
+
+
+        .upload-icon {
+
+            width: 76px;
+
+            height: 76px;
+
+            border-radius: 23px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            margin: 0 auto 18px;
+
+            background:
+                rgba(99,102,241,0.10);
+
+            border:
+                1px solid rgba(129,140,248,0.18);
+
+            color: #818cf8;
+
+            font-size: 28px;
+        }
+
+
+        .upload-placeholder h4 {
+
+            font-size: 17px;
+
+            font-weight: 700;
+
+            margin-bottom: 8px;
+        }
+
+
+        .upload-placeholder p {
+
+            color: #68748a;
+
+            font-size: 11px;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* =========================================================
+           UPLOADED IMAGE
+        ========================================================== */
+
+        #photo {
+
+            display: none;
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: contain;
+
+            padding: 16px;
+
+            border-radius: 20px;
+
+            background: #02040b;
+        }
+
+
+        /* =========================================================
+           IMAGE OVERLAY
+        ========================================================== */
+
+        .image-overlay {
+
+            display: none;
+
+            position: absolute;
+
+            left: 15px;
+
+            right: 15px;
+
+            bottom: 15px;
+
+            padding: 10px 12px;
+
+            border-radius: 13px;
+
+            background:
+                rgba(3,7,18,0.90);
+
+            backdrop-filter: blur(12px);
+
+            -webkit-backdrop-filter: blur(12px);
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            z-index: 20;
+        }
+
+
+        .image-name {
+
+            max-width: 55%;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+
+            color: #d1d5db;
+
+            font-size: 10px;
+        }
+
+
+        .change-image-btn {
+
+            border: none;
+
+            background:
+                rgba(129,140,248,0.13);
+
+            color: #a5b4fc;
+
+            padding: 7px 11px;
+
+            border-radius: 9px;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .change-image-btn:hover {
+
+            background:
+                rgba(129,140,248,0.25);
+
+            color: #ffffff;
+        }
+
+
+        /* =========================================================
+           BUTTONS
+        ========================================================== */
+
+        .btn-ai {
+
+            border: none;
+
+            border-radius: 13px;
+
+            padding: 13px 21px;
+
+            color: #ffffff !important;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6366f1,
+                    #8b5cf6
+                );
+
+            box-shadow:
+                0 10px 28px
+                rgba(99,102,241,0.25);
+
+            transition: 0.25s ease;
+        }
+
+
+        .btn-ai:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 15px 35px
+                rgba(99,102,241,0.38);
+        }
+
+
+        .btn-ai i {
+
+            margin-right: 7px;
+        }
+
+
+        .btn-analyze {
+
+            width: 100%;
+
+            margin-top: 15px;
+
+            padding: 15px;
+
+            font-size: 13px;
+        }
+
+
+        .btn-analyze:disabled {
+
+            opacity: 0.38;
+
+            cursor: not-allowed;
+
+            transform: none;
+
+            box-shadow: none;
+        }
+
+
+        .btn-remove {
+
+            display: none;
+
+            width: 100%;
+
+            margin-top: 10px;
+
+            border:
+                1px solid rgba(244,63,94,0.15);
+
+            background:
+                rgba(244,63,94,0.05);
+
+            color: #fb7185;
+
+            border-radius: 11px;
+
+            padding: 9px;
+
+            font-size: 10px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+        }
+
+
+        .btn-remove:hover {
+
+            background:
+                rgba(244,63,94,0.11);
+        }
+
+
+        /* =========================================================
+           RESULTS
+        ========================================================== */
+
+        .result-container {
+
+            min-height: 420px;
+
+            border-radius: 21px;
+
+            background:
+                rgba(3,7,18,0.42);
+
+            border:
+                1px solid rgba(255,255,255,0.055);
+
+            padding: 22px;
+
+            position: relative;
+
+            overflow: auto;
+        }
+
+
+        .result-placeholder {
+
+            min-height: 350px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            color: #5f6a80;
+        }
+
+
+        .result-placeholder-icon {
+
+            width: 70px;
+
+            height: 70px;
+
+            border-radius: 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            margin: 0 auto 16px;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid rgba(255,255,255,0.06);
+
+            font-size: 26px;
+        }
+
+
+        .result-placeholder p {
+
+            max-width: 260px;
+
+            font-size: 11px;
+
+            line-height: 1.7;
+
+            margin: 0 auto;
+        }
+
+
+        .res-part2 {
+
+            text-align: center;
+
+            width: 100%;
+
+            margin-bottom: 15px;
+        }
+
+
+        .res-part2 img {
+
+            max-width: 100%;
+
+            max-height: 265px;
+
+            border-radius: 15px;
+
+            object-fit: contain;
+        }
+
+
+        .res-part {
+
+            width: 100%;
+        }
+
+
+        .prediction-result {
+
+            padding: 18px;
+
+            border-radius: 15px;
+
+            background:
+                rgba(99,102,241,0.07);
+
+            border:
+                1px solid rgba(129,140,248,0.13);
+        }
+
+
+        .prediction-heading {
+
+            color: #a5b4fc;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 10px;
+        }
+
+
+        .prediction-result pre {
+
+            margin: 0;
+
+            color: #d1d5db;
+
+            font-family: "Inter", sans-serif;
+
+            font-size: 11px;
+
+            line-height: 1.7;
+
+            white-space: pre-wrap;
+
+            word-break: break-word;
+        }
+
+
+        /* =========================================================
+           DEVELOPER CARD
+        ========================================================== */
+
+        .developer-card {
+
+            margin-top: 25px;
+
+            padding: 18px 21px;
+
+            border-radius: 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    rgba(99,102,241,0.07),
+                    rgba(14,165,233,0.04)
+                );
+
+            border:
+                1px solid rgba(255,255,255,0.07);
+        }
+
+
+        .developer-info {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            min-width: 0;
+        }
+
+
+        .developer-photo {
+
+            width: 64px;
+
+            height: 64px;
+
+            min-width: 64px;
+
+            border-radius: 50%;
+
+            object-fit: cover;
+
+            object-position: center top;
+
+            display: block;
+
+            border:
+                2px solid
+                rgba(129,140,248,0.45);
+
+            background: #111827;
+
+            box-shadow:
+                0 8px 25px
+                rgba(0,0,0,0.35);
+        }
+
+
+        /* Fallback avatar */
+        .developer-avatar {
+
+            width: 64px;
+
+            height: 64px;
+
+            min-width: 64px;
+
+            border-radius: 50%;
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6366f1,
+                    #8b5cf6
+                );
+
+            border:
+                2px solid
+                rgba(129,140,248,0.45);
+
+            color: #ffffff;
+
+            font-size: 20px;
+
+            font-weight: 800;
+        }
+
+
+        .developer-label {
+
+            color: #69758b;
+
+            font-size: 9px;
+
+            font-weight: 700;
+
+            letter-spacing: 1px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 3px;
+        }
+
+
+        .developer-name {
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            margin-bottom: 3px;
+        }
+
+
+        .developer-role {
+
+            color: #818cf8;
+
+            font-size: 10px;
+
+            font-weight: 600;
+        }
+
+
+        .developer-tech {
+
+            display: flex;
+
+            gap: 7px;
+
+            flex-wrap: wrap;
+
+            justify-content: flex-end;
+        }
+
+
+        .tech-tag {
+
+            padding: 7px 10px;
+
+            border-radius: 8px;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid rgba(255,255,255,0.06);
+
+            color: #8c96aa;
+
+            font-size: 9px;
+
+            font-weight: 600;
+        }
+
+
+        /* =========================================================
+           INFO CARDS
+        ========================================================== */
+
+        .info-section {
+
+            margin-top: 25px;
+        }
+
+
+        .info-card {
+
+            height: 100%;
+
+            padding: 21px;
+
+            border-radius: 18px;
+
+            background:
+                rgba(255,255,255,0.025);
+
+            border:
+                1px solid rgba(255,255,255,0.055);
+
+            transition: 0.25s ease;
+        }
+
+
+        .info-card:hover {
+
+            transform: translateY(-3px);
+
+            background:
+                rgba(255,255,255,0.04);
+        }
+
+
+        .info-icon {
+
+            width: 38px;
+
+            height: 38px;
+
+            border-radius: 11px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                rgba(99,102,241,0.10);
+
+            color: #818cf8;
+
+            margin-bottom: 13px;
+        }
+
+
+        .info-card h5 {
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            margin-bottom: 7px;
+        }
+
+
+        .info-card p {
+
+            color: #68748a;
+
+            font-size: 10px;
+
+            line-height: 1.7;
+
+            margin: 0;
+        }
+
+
+        /* =========================================================
+           DISCLAIMER
+        ========================================================== */
+
+        .disclaimer {
+
+            margin-top: 22px;
+
+            padding: 14px 17px;
+
+            border-radius: 13px;
+
+            background:
+                rgba(245,158,11,0.045);
+
+            border:
+                1px solid rgba(245,158,11,0.10);
+
+            color: #7f7a70;
+
+            font-size: 9px;
+
+            line-height: 1.7;
+        }
+
+
+        .disclaimer strong {
+
+            color: #d6a93a;
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================== */
+
+        footer {
+
+            margin-top: auto;
+
+            padding: 25px 0;
+
+            border-top:
+                1px solid rgba(255,255,255,0.06);
+
+            text-align: center;
+
+            background:
+                rgba(3,5,12,0.45);
+        }
+
+
+        footer p {
+
+            margin: 0;
+
+            color: #606b80;
+
+            font-size: 10px;
+        }
+
+
+        footer .heart {
+
+            color: #f43f5e;
+
+            display: inline-block;
+
+            animation:
+                heartbeat 1.4s infinite;
+        }
+
+
+        footer .name {
+
+            color: #a5b4fc;
+
+            font-weight: 700;
+        }
+
+
+        @keyframes heartbeat {
+
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.18);
+            }
+        }
+
+
+        /* =========================================================
+           LOADING
+        ========================================================== */
+
+        #loading {
+
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 9999;
+
+            background:
+                rgba(3,7,18,0.82);
+
+            backdrop-filter: blur(12px);
+
+            -webkit-backdrop-filter: blur(12px);
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .loading-box {
+
+            text-align: center;
+
+            padding: 34px 42px;
+
+            border-radius: 22px;
+
+            background:
+                rgba(13,18,34,0.96);
+
+            border:
+                1px solid rgba(255,255,255,0.09);
+
+            box-shadow:
+                0 30px 90px
+                rgba(0,0,0,0.5);
+        }
+
+
+        .spinner {
+
+            width: 48px;
+
+            height: 48px;
+
+            margin: 0 auto 17px;
+
+            border:
+                3px solid
+                rgba(255,255,255,0.08);
+
+            border-top-color: #818cf8;
+
+            border-radius: 50%;
+
+            animation:
+                spin 0.8s linear infinite;
+        }
+
+
+        .loading-box h5 {
+
+            font-size: 15px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .loading-box p {
+
+            color: #6f7b91;
+
+            font-size: 10px;
+
+            margin: 0;
+        }
+
+
+        @keyframes spin {
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+
+        /* =========================================================
+           MOBILE
+        ========================================================== */
+
+        @media (max-width: 767px) {
+
+            .nav-center {
+                display: none;
+            }
+
+
+            .hero {
+                padding: 50px 15px 35px;
+            }
+
+
+            .hero h1 {
+
+                font-size: 42px;
+
+                letter-spacing: -2.5px;
+            }
+
+
+            .application-card {
+                padding: 17px;
+            }
+
+
+            .upload-box {
+                height: 340px;
+            }
+
+
+            .result-container {
+
+                min-height: 340px;
+
+                margin-top: 20px;
+            }
+
+
+            .developer-card {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+
+            .developer-tech {
+
+                justify-content: flex-start;
+            }
+
+        }
+
+    </style>
+
 </head>
+
+
 <body>
-    <div class="main container">
-		<section class="iupload">
-			<h3 class="text-center py-4">Object Classification</h3>
-			<div class="row">
-				<div class="img-part col-md-6">
-					<div class="image-part">
-						<video autoplay id="video" poster="https://img.freepik.com/free-vector/group-young-people-posing-photo_52683-18824.jpg?size=338&ext=jpg"></video>
-						<img src="" id="photo">
-						<canvas style="display:none;" id="canvas"></canvas>
-					</div>
-					<div class="btn-part">
-						<form id="upload-data pt-3" class="">
-							<div class="input-group mt-3 row">
-								<button type="button" class="btn btn-primary col-md-5 col-xs-5 ml-3 mr-4" id="uload">Upload</button>
-								<button id="send" type="button" class="btn btn-success col-md-5 col-xs-5">Predict</button>
-							</div>
+
+
+<div class="page-wrapper">
+
+
+    <!-- =========================================================
+         NAVBAR
+    ========================================================== -->
+
+    <nav class="navbar-custom">
+
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+
+
+                <!-- BRAND -->
+
+                <a href="#" class="brand">
+
+                    <div class="brand-logo">
+
+                        <i class="fa-solid fa-dna"></i>
+
+                    </div>
+
+
+                    <div class="brand-name">
+
+                        Kidney<span>Vision</span> AI
+
+                    </div>
+
+                </a>
+
+
+                <!-- CENTER -->
+
+                <div class="nav-center">
+
+                    <div class="nav-pill">
+
+                        <i class="fa-solid fa-brain"></i>
+
+                        Deep Learning
+
+                    </div>
+
+
+                    <div class="nav-pill">
+
+                        <i class="fa-solid fa-microchip"></i>
+
+                        CNN
+
+                    </div>
+
+                </div>
+
+
+                <!-- STATUS -->
+
+                <div class="nav-status">
+
+                    <span class="status-dot"></span>
+
+                    Model Online
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </nav>
 
 
 
+    <!-- =========================================================
+         HERO
+    ========================================================== -->
+
+    <section class="hero">
+
+        <div class="container hero-content">
+
+
+            <div class="hero-badge">
+
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                AI-Powered Medical Image Classification
+
+            </div>
+
+
+            <h1>
+
+                Kidney Disease
+
+                <br>
+
+                <span class="gradient-text">
+
+                    Classification
+
+                </span>
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                An end-to-end Deep Learning application powered by
+                Convolutional Neural Networks to analyze kidney images
+                and generate an AI-assisted classification result.
+
+            </p>
+
+
+            <div class="hero-stats">
+
+
+                <div class="hero-stat">
+
+                    <i class="fa-solid fa-brain"></i>
+
+                    CNN Architecture
+
+                </div>
+
+
+                <div class="hero-stat">
+
+                    <i class="fa-solid fa-image"></i>
+
+                    Computer Vision
+
+                </div>
+
+
+                <div class="hero-stat">
+
+                    <i class="fa-solid fa-bolt"></i>
+
+                    Real-Time Prediction
+
+                </div>
+
+
+                <div class="hero-stat">
+
+                    <i class="fa-solid fa-code"></i>
+
+                    Flask API
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
 
 
 
-							<!-- change url value  -->
+    <!-- =========================================================
+         MAIN APPLICATION
+    ========================================================== -->
+
+    <section class="main-section">
+
+        <div class="container">
+
+
+            <div class="glass-card application-card">
+
+
+                <div class="row">
+
+
+                    <!-- =================================================
+                         LEFT SIDE
+                    ================================================== -->
+
+                    <div class="col-lg-6">
+
+
+                        <div class="section-label">
+
+                            Step 01
+
+                        </div>
+
+
+                        <div class="section-title">
+
+                            Upload Kidney Image
+
+                        </div>
+
+
+                        <div class="section-subtitle">
+
+                            Select an image or drag and drop it here.
+
+                        </div>
 
 
 
+                        <!-- UPLOAD AREA -->
 
-							<input type="hidden" class="form-control mr-2" id="url" placeholder="Enter REST Api url..." value="../predict"/>
-							<input name="upload" type="file" id="fileinput" style="position:absolute;top:-500px;"/><br/>
-						</form>
-					</div>
-				</div>
-				<div class="col-md-6 col-xs-12 right-part">
-					<h5 class="mb-2"><center>Prediction Results</center></h5>
-					<div class="row">
-						<div class="res-part2 col-md-5 col-xs-12"></div>
-						<div class="res-part col-md-5 col-xs-12"><div class="jsonRes"></div></div>
-					</div>
-				</div>
-			</div>
-		</section>
-	</div>
-
-	<img class="logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIkAAAAlCAMAAABBJDpuAAAAVFBMVEX/fgD/iQA7NzIyMjMnNYInNYEnNYInNYEzMzInNYQnNYETJzsnNYIwN1wxMjNoTis4O1YrNm0xOF47PE9DP0dEQEVpTVkAJJ4nNYEOLJHJbiAzMzOmmmHRAAAAFnRSTlOh/vu+986oen9fP2UqEzQkFAIDAAEEILVBJQAAA3FJREFUWMPNmO2WoyAMQG0VBARtdVRs3/89NwkgaF1rd2aOm18tIrnkgwSz7n+R7LcV1ELkeS7E7VySRlyfQXJhTiO55c+liP4cEuH1X8E7gaV+S3Jv2zYZ/Vr+/Sdx2vP6doc/fSPcf/GOpLSFVXFUW8t+giRP47TOd60yk1hbxIhSP0ACKPWrvw7YBIT/lcQY84G3Wk17ugWQfg5UsQJpjflKSLQi7xTWyk0SXTJ4VnB5D1yccxmp4Z+mX5KGNS+SPXVNll0ulyxL0wYmloBB6zL/MpCoAgjAJiUM6w0SboMwPUdRogvNKcNM3smFdRvEcJJkKcflQa+X0pNIfBGW0zKqjyQtw4VLKQlI7ZLgdrRNSZDjMQx2GB4pCkxkCrfGWUTJ0Egan6muCHgJCUwtnCk0mrJ9Q8K5LUqtdSfynkAedhynaRqngVDaXLiJEAzkFkM71IuIlWRYtSQpbXSZDvQ7JPCei9brs+oaABkn74LRIkpFaVxGnzjvIxTYREOoEwn5r01JTDRTcO87Eu3zNUeTPKZpjrIRrNIDCjzALbPk7LJMIokOEQu2K7yKQAKvFDF9pVe0R+LGb7h1MMkw2ijjA/1zhSfSphvEAChXJEhAqwYStIJWXnTpvbdH4hTUwSQ2JRmQpILDLYbB7J41SYiLcNozu5Z3JMo7RxBJahI7WSRByCMkqJt9hySESbVJcvmARJGFExJmdBSl2oM2+T4JLWfgaGFptizlPUm1FydHSdyZ7UnS4ySph2kS0kJrkvr5NJg7dnrJnfxgxPozRPGtkyPNOxtaiDvbIAF9L+5B5zTI2BwlwXmM+U3zReav3o0F8oUEFFZ42McDZYomOUziFmezgWyo251Uc1nyKJol7URCEvIYUEbHYaEGQi9C9egwCdVfHwiaajfjKMUcHcRacCylhWJbJDfq47EEDhYqoIWjHnwDXZPpPiChPQelLU+Cbm4w50FmYgkvFwpiWwCC/Um/SLcNElOC9RVj6qWpCiEMvRUK4zLpdKmPw8rVldy/qxjn60wLrVLWJIPLiZJRr3fsvnOHPvare+lB93tb37T20D82jqOt+zNuXhuNvNhp7X+PpHb3rvV9R5xjE2SpyCN9ffQO+GtWIZr5Xnytz4gTMIRYfys47/uJEXny/aQ/95tSUwmU+uRvSp/IHzQqZYpYrQmxAAAAAElFTkSuQmCC" />
+                        <div
+                            class="upload-box"
+                            id="uploadBox"
+                        >
 
 
-<div id="loading"><div class="loader"></div></div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+                            <!-- PLACEHOLDER -->
+
+                            <div
+                                id="uploadPlaceholder"
+                                class="upload-placeholder"
+                            >
+
+
+                                <div class="upload-icon">
+
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                                </div>
+
+
+                                <h4>
+
+                                    Drop your image here
+
+                                </h4>
+
+
+                                <p>
+
+                                    PNG, JPG or JPEG • Maximum 10 MB
+
+                                </p>
+
+
+                                <button
+                                    type="button"
+                                    id="uload"
+                                    class="btn-ai"
+                                >
+
+                                    <i class="fa-solid fa-folder-open"></i>
+
+                                    Choose Image
+
+                                </button>
+
+
+                            </div>
+
+
+
+                            <!-- UPLOADED IMAGE -->
+
+                            <img
+                                id="photo"
+                                src=""
+                                alt="Uploaded kidney image"
+                            >
+
+
+
+                            <!-- IMAGE CONTROLS -->
+
+                            <div
+                                class="image-overlay"
+                                id="imageOverlay"
+                            >
+
+
+                                <span
+                                    class="image-name"
+                                    id="imageName"
+                                >
+
+                                    Selected image
+
+                                </span>
+
+
+                                <button
+                                    type="button"
+                                    class="change-image-btn"
+                                    id="changeImage"
+                                >
+
+                                    <i class="fa-solid fa-rotate"></i>
+
+                                    Change
+
+                                </button>
+
+
+                            </div>
+
+
+
+                            <!-- OLD TEMPLATE ELEMENTS
+                                 Kept for backend compatibility -->
+
+                            <video
+                                autoplay
+                                id="video"
+                            ></video>
+
+
+                            <canvas
+                                id="canvas"
+                            ></canvas>
+
+
+                        </div>
+
+
+
+                        <!-- HIDDEN FILE INPUT -->
+
+                        <input
+                            type="file"
+                            id="fileinput"
+                            accept="image/png,image/jpeg,image/jpg"
+                        >
+
+
+
+                        <!-- ANALYZE BUTTON -->
+
+                        <button
+                            type="button"
+                            id="send"
+                            class="btn-ai btn-analyze"
+                            disabled
+                        >
+
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                            Analyze Image
+
+                        </button>
+
+
+
+                        <!-- REMOVE BUTTON -->
+
+                        <button
+                            type="button"
+                            id="removeImage"
+                            class="btn-remove"
+                        >
+
+                            <i class="fa-solid fa-trash"></i>
+
+                            Remove Image
+
+                        </button>
+
+
+
+                        <!-- FLASK ENDPOINT -->
+
+                        <input
+                            type="hidden"
+                            id="url"
+                            value="../predict"
+                        >
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         RIGHT SIDE
+                    ================================================== -->
+
+                    <div class="col-lg-6">
+
+
+                        <div class="section-label">
+
+                            Step 02
+
+                        </div>
+
+
+                        <div class="section-title">
+
+                            AI Prediction
+
+                        </div>
+
+
+                        <div class="section-subtitle">
+
+                            Your CNN model output will appear here.
+
+                        </div>
+
+
+
+                        <!-- RESULT AREA -->
+
+                        <div class="result-container">
+
+
+                            <!-- EMPTY STATE -->
+
+                            <div
+                                id="resultPlaceholder"
+                                class="result-placeholder"
+                            >
+
+
+                                <div>
+
+
+                                    <div class="result-placeholder-icon">
+
+                                        <i class="fa-solid fa-chart-simple"></i>
+
+                                    </div>
+
+
+                                    <p>
+
+                                        Your prediction will appear here
+                                        after the image has been analyzed.
+
+                                    </p>
+
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            <!-- RETURNED IMAGE -->
+
+                            <div class="res-part2"></div>
+
+
+
+                            <!-- PREDICTION RESULT -->
+
+                            <div class="res-part"></div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =====================================================
+                     DEVELOPER SECTION
+                ====================================================== -->
+
+                <div class="developer-card">
+
+
+                    <div class="developer-info">
+
+
+                        <!-- ACTUAL PHOTO -->
+
+                        <img
+                            id="developerPhoto"
+                            src="{{ url_for('static', filename='images/divyadarshan.jpg') }}"
+                            class="developer-photo"
+                            alt="Divyadarshan Srivastava"
+                            onerror="this.style.display='none'; document.getElementById('developerAvatar').style.display='flex';"
+                        >
+
+
+                        <!-- FALLBACK IF PHOTO IS MISSING -->
+
+                        <div
+                            id="developerAvatar"
+                            class="developer-avatar"
+                        >
+
+                            DS
+
+                        </div>
+
+
+                        <div>
+
+
+                            <div class="developer-label">
+
+                                Project Developer
+
+                            </div>
+
+
+                            <div class="developer-name">
+
+                                Divyadarshan Srivastava
+
+                            </div>
+
+
+                            <div class="developer-role">
+
+                                AI/ML Engineer • Deep Learning
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="developer-tech">
+
+
+                        <span class="tech-tag">
+
+                            Python
+
+                        </span>
+
+
+                        <span class="tech-tag">
+
+                            TensorFlow
+
+                        </span>
+
+
+                        <span class="tech-tag">
+
+                            CNN
+
+                        </span>
+
+
+                        <span class="tech-tag">
+
+                            Flask
+
+                        </span>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =====================================================
+                     INFORMATION CARDS
+                ====================================================== -->
+
+                <div class="row info-section">
+
+
+                    <div class="col-md-4 mb-3 mb-md-0">
+
+
+                        <div class="info-card">
+
+
+                            <div class="info-icon">
+
+                                <i class="fa-solid fa-brain"></i>
+
+                            </div>
+
+
+                            <h5>
+
+                                Deep Learning Model
+
+                            </h5>
+
+
+                            <p>
+
+                                A Convolutional Neural Network processes
+                                visual features from the uploaded image
+                                for classification.
+
+                            </p>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="col-md-4 mb-3 mb-md-0">
+
+
+                        <div class="info-card">
+
+
+                            <div class="info-icon">
+
+                                <i class="fa-solid fa-bolt"></i>
+
+                            </div>
+
+
+                            <h5>
+
+                                Real-Time Analysis
+
+                            </h5>
+
+
+                            <p>
+
+                                Upload an image and send it directly to
+                                the Flask prediction API for inference.
+
+                            </p>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="col-md-4">
+
+
+                        <div class="info-card">
+
+
+                            <div class="info-icon">
+
+                                <i class="fa-solid fa-layer-group"></i>
+
+                            </div>
+
+
+                            <h5>
+
+                                End-to-End Project
+
+                            </h5>
+
+
+                            <p>
+
+                                Demonstrates image preprocessing, deep
+                                learning inference, API integration and
+                                application deployment.
+
+                            </p>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =====================================================
+                     DISCLAIMER
+                ====================================================== -->
+
+                <div class="disclaimer">
+
+
+                    <strong>Important:</strong>
+
+                    This application is an educational Deep Learning
+                    project and is not intended to provide medical diagnosis,
+                    treatment recommendations, or professional medical advice.
+                    Model predictions should not be used as a substitute for
+                    evaluation by a qualified healthcare professional.
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================== -->
+
+    <footer>
+
+        <div class="container">
+
+
+            <p>
+
+                Made with
+
+                <span class="heart">
+
+                    ♥️
+
+                </span>
+
+                by
+
+                <span class="name">
+
+                    Divyadarshan Srivastava
+
+                </span>
+
+            </p>
+
+
+        </div>
+
+    </footer>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     LOADING SCREEN
+========================================================== -->
+
+<div id="loading">
+
+
+    <div class="loading-box">
+
+
+        <div class="spinner"></div>
+
+
+        <h5>
+
+            Analyzing Kidney Image
+
+        </h5>
+
+
+        <p>
+
+            Your CNN model is processing the image...
+
+        </p>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     JQUERY
+     IMPORTANT:
+     JQUERY MUST BE LOADED BEFORE OUR JAVASCRIPT
+========================================================== -->
+
+<script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+</script>
+
+
 
 <script>
-var mybtn = document.getElementById('startbtn');
-var myvideo = document.getElementById('video');
-var mycanvas = document.getElementById('canvas');
-var myphoto = document.getElementById('photo');
-var base_data = "";
 
-function sendRequest(base64Data){
-	var type = "json";
-	if(base64Data != "" || base64Data != null){
-		if(type == "imgtobase"){
-			$(".res-part").html("");
-			$(".res-part").html(base64Data);
-		}
-		else if(type == "basetoimg"){
-			var imageData = $("#imgstring").val();
-			$(".res-part").html("");
-			$(".res-part").append("<img src='data:image/jpeg;base64," + imageData + "' alt='' />");
-		}
-		else{
-			var url = $("#url").val();
-			$("#loading").show();
-			$.ajax({
-				url : url,
-				type: "post",
-				cache: false,
-				async: true,
-				crossDomain: true,
-				headers: {
-					'Content-Type': 'application/json',
-					'Access-Control-Allow-Origin':'*'
-				},
-				data:JSON.stringify({image:base64Data}),
-				success: function(res){
-					$(".res-part").html("");
-					$(".res-part2").html("");
-					try{
-						var imageData = res[1].image;
-						if(imageData.length > 100){
-							if(imageData.length > 10){$(".res-part2").append("<img class='resp-img' src='data:image/jpeg;base64," + imageData + "' alt='' />");}
-						}
-					}catch(e){}
-					$(".res-part").html("<pre>" + JSON.stringify(res[0], undefined, 2) + "</pre>");
-					$("#loading").hide();
-				}
-			});
-		}
-	}
-}
+    /* =========================================================
+       GLOBAL VARIABLES
+    ========================================================== */
 
-$(document).ready(function(){
-	$("#loading").hide();
+    var mybtn =
+        document.getElementById("send");
 
-	$('#send').click(function(evt){
-		sendRequest(base_data);
+
+    var myvideo =
+        document.getElementById("video");
+
+
+    var mycanvas =
+        document.getElementById("canvas");
+
+
+    var myphoto =
+        document.getElementById("photo");
+
+
+    var base_data = "";
+
+
+
+    /* =========================================================
+       SEND IMAGE TO FLASK
+    ========================================================== */
+
+    function sendRequest(base64Data) {
+
+
+        if (!base64Data) {
+
+            alert(
+                "Please choose an image first."
+            );
+
+            return;
+        }
+
+
+        var url =
+            $("#url").val();
+
+
+        $("#loading").css(
+            "display",
+            "flex"
+        );
+
+
+        $.ajax({
+
+            url: url,
+
+            type: "POST",
+
+            contentType:
+                "application/json",
+
+            data:
+                JSON.stringify({
+
+                    image: base64Data
+
+                }),
+
+
+            success: function(res) {
+
+
+                console.log(
+                    "Prediction response:",
+                    res
+                );
+
+
+                $("#loading").hide();
+
+
+                $("#resultPlaceholder").hide();
+
+
+                $(".res-part").html("");
+
+                $(".res-part2").html("");
+
+
+                /* =============================================
+                   RETURNED IMAGE
+                ============================================== */
+
+                try {
+
+
+                    if (
+
+                        res &&
+                        res.length > 1 &&
+                        res[1] &&
+                        res[1].image
+
+                    ) {
+
+
+                        $(".res-part2").html(
+
+                            "<img src='data:image/jpeg;base64," +
+
+                            res[1].image +
+
+                            "' alt='Prediction Result'>"
+
+                        );
+
+                    }
+
+
+                }
+
+                catch(error) {
+
+                    console.log(
+                        "No returned image."
+                    );
+
+                }
+
+
+
+                /* =============================================
+                   PREDICTION
+                ============================================== */
+
+                if (
+
+                    res &&
+                    res.length > 0
+
+                ) {
+
+
+                    $(".res-part").html(
+
+                        "<div class='prediction-result'>" +
+
+                            "<div class='prediction-heading'>" +
+
+                                "<i class='fa-solid fa-circle-check'></i>" +
+
+                                " Model Prediction" +
+
+                            "</div>" +
+
+                            "<pre>" +
+
+                                JSON.stringify(
+
+                                    res[0],
+
+                                    undefined,
+
+                                    2
+
+                                ) +
+
+                            "</pre>" +
+
+                        "</div>"
+
+                    );
+
+
+                }
+
+                else {
+
+
+                    $(".res-part").html(
+
+                        "<div class='prediction-result'>" +
+
+                            "<div class='prediction-heading'>" +
+
+                                "Prediction Result" +
+
+                            "</div>" +
+
+                            "<pre>No prediction result returned.</pre>" +
+
+                        "</div>"
+
+                    );
+
+                }
+
+            },
+
+
+            error: function(
+                xhr,
+                status,
+                error
+            ) {
+
+
+                console.error(
+                    "Prediction error:",
+                    xhr.responseText
+                );
+
+
+                $("#loading").hide();
+
+
+                $("#resultPlaceholder").hide();
+
+
+                $(".res-part2").html("");
+
+
+                $(".res-part").html(
+
+                    "<div class='prediction-result'>" +
+
+                        "<div class='prediction-heading'>" +
+
+                            "<i class='fa-solid fa-triangle-exclamation'></i>" +
+
+                            " Prediction Error" +
+
+                        "</div>" +
+
+                        "<pre>" +
+
+                            "Unable to process the image.\n\n" +
+
+                            "Please make sure the Flask backend is running correctly." +
+
+                        "</pre>" +
+
+                    "</div>"
+
+                );
+
+            }
+
+        });
+
+    }
+
+
+
+    /* =========================================================
+       DOCUMENT READY
+    ========================================================== */
+
+    $(document).ready(function() {
+
+
+        /* =============================================
+           INITIAL STATE
+        ============================================== */
+
+        $("#loading").hide();
+
+        $("#send").prop(
+            "disabled",
+            true
+        );
+
+        $("#removeImage").hide();
+
+        $("#imageOverlay").hide();
+
+
+
+        /* =============================================
+           CHOOSE IMAGE
+        ============================================== */
+
+        $("#uload").on(
+            "click",
+            function(event) {
+
+
+                event.preventDefault();
+
+
+                $("#fileinput").trigger(
+                    "click"
+                );
+
+            }
+        );
+
+
+
+        /* =============================================
+           CHANGE IMAGE
+        ============================================== */
+
+        $("#changeImage").on(
+            "click",
+            function(event) {
+
+
+                event.preventDefault();
+
+
+                $("#fileinput").trigger(
+                    "click"
+                );
+
+            }
+        );
+
+
+
+        /* =============================================
+           FILE SELECTED
+        ============================================== */
+
+        $("#fileinput").on(
+            "change",
+            function() {
+
+
+                var file =
+                    this.files[0];
+
+
+                if (!file) {
+
+                    return;
+
+                }
+
+
+
+                /* =============================================
+                   VALIDATE IMAGE
+                ============================================== */
+
+                if (
+                    !file.type.startsWith(
+                        "image/"
+                    )
+                ) {
+
+
+                    alert(
+                        "Please select a valid image file."
+                    );
+
+
+                    $("#fileinput").val("");
+
+
+                    return;
+
+                }
+
+
+
+                /* =============================================
+                   FILE SIZE
+                ============================================== */
+
+                if (
+                    file.size >
+                    10 * 1024 * 1024
+                ) {
+
+
+                    alert(
+                        "Please choose an image smaller than 10 MB."
+                    );
+
+
+                    $("#fileinput").val("");
+
+
+                    return;
+
+                }
+
+
+
+                /* =============================================
+                   FILE NAME
+                ============================================== */
+
+                $("#imageName").text(
+                    file.name
+                );
+
+
+
+                /* =============================================
+                   READ FILE
+                ============================================== */
+
+                var reader =
+                    new FileReader();
+
+
+                reader.onload =
+                    function(event) {
+
+
+                        var img =
+                            new Image();
+
+
+                        img.onload =
+                            function() {
+
+
+                                /* =================================
+                                   CANVAS
+                                ================================== */
+
+                                mycanvas.width =
+                                    img.width;
+
+
+                                mycanvas.height =
+                                    img.height;
+
+
+                                var ctx =
+                                    mycanvas.getContext(
+                                        "2d"
+                                    );
+
+
+                                ctx.clearRect(
+                                    0,
+                                    0,
+                                    mycanvas.width,
+                                    mycanvas.height
+                                );
+
+
+                                ctx.drawImage(
+
+                                    img,
+
+                                    0,
+                                    0
+
+                                );
+
+
+
+                                /* =================================
+                                   BASE64
+                                ================================== */
+
+                                var dataURL =
+                                    mycanvas.toDataURL(
+
+                                        "image/jpeg",
+
+                                        0.92
+
+                                    );
+
+
+                                base_data =
+                                    dataURL.replace(
+
+                                        /^data:image\/jpeg;base64,/,
+
+                                        ""
+
+                                    );
+
+
+
+                                /* =================================
+                                   SHOW IMAGE
+                                ================================== */
+
+                                $("#photo")
+                                    .attr(
+                                        "src",
+                                        dataURL
+                                    )
+                                    .css(
+                                        "display",
+                                        "block"
+                                    );
+
+
+
+                                /* =================================
+                                   HIDE PLACEHOLDER
+                                ================================== */
+
+                                $("#uploadPlaceholder")
+                                    .hide();
+
+
+
+                                /* =================================
+                                   SHOW CHANGE BUTTON
+                                ================================== */
+
+                                $("#imageOverlay")
+                                    .css(
+                                        "display",
+                                        "flex"
+                                    );
+
+
+
+                                /* =================================
+                                   SHOW REMOVE BUTTON
+                                ================================== */
+
+                                $("#removeImage")
+                                    .css(
+                                        "display",
+                                        "block"
+                                    );
+
+
+
+                                /* =================================
+                                   ENABLE ANALYZE
+                                ================================== */
+
+                                $("#send")
+                                    .prop(
+                                        "disabled",
+                                        false
+                                    );
+
+
+
+                                /* =================================
+                                   CLEAR OLD RESULT
+                                ================================== */
+
+                                $(".res-part")
+                                    .html("");
+
+
+                                $(".res-part2")
+                                    .html("");
+
+
+                                $("#resultPlaceholder")
+                                    .show();
+
+
+                            };
+
+
+                        img.onerror =
+                            function() {
+
+
+                                alert(
+                                    "Unable to read this image."
+                                );
+
+
+                                $("#fileinput").val("");
+
+                            };
+
+
+                        img.src =
+                            event.target.result;
+
+                    };
+
+
+                reader.readAsDataURL(file);
+
+            }
+        );
+
+
+
+        /* =========================================================
+           REMOVE IMAGE
+        ========================================================== */
+
+        $("#removeImage").on(
+            "click",
+            function() {
+
+
+                /* =============================================
+                   CLEAR BASE64
+                ============================================== */
+
+                base_data = "";
+
+
+
+                /* =============================================
+                   CLEAR FILE INPUT
+                ============================================== */
+
+                $("#fileinput").val("");
+
+
+
+                /* =============================================
+                   CLEAR PHOTO
+                ============================================== */
+
+                $("#photo")
+                    .attr(
+                        "src",
+                        ""
+                    )
+                    .hide();
+
+
+
+                /* =============================================
+                   HIDE IMAGE CONTROLS
+                ============================================== */
+
+                $("#imageOverlay")
+                    .hide();
+
+
+                $("#removeImage")
+                    .hide();
+
+
+
+                /* =============================================
+                   SHOW UPLOAD PLACEHOLDER
+                ============================================== */
+
+                $("#uploadPlaceholder")
+                    .show();
+
+
+
+                /* =============================================
+                   DISABLE ANALYZE
+                ============================================== */
+
+                $("#send")
+                    .prop(
+                        "disabled",
+                        true
+                    );
+
+
+
+                /* =============================================
+                   CLEAR RESULTS
+                ============================================== */
+
+                $(".res-part")
+                    .html("");
+
+
+                $(".res-part2")
+                    .html("");
+
+
+                $("#resultPlaceholder")
+                    .show();
+
+            }
+        );
+
+
+
+        /* =========================================================
+           ANALYZE IMAGE
+        ========================================================== */
+
+        $("#send").on(
+            "click",
+            function() {
+
+
+                if (!base_data) {
+
+
+                    alert(
+                        "Please choose an image first."
+                    );
+
+
+                    return;
+
+                }
+
+
+                sendRequest(
+                    base_data
+                );
+
+            }
+        );
+
+
+
+        /* =========================================================
+           DRAG & DROP
+        ========================================================== */
+
+        var uploadBox =
+            document.getElementById(
+                "uploadBox"
+            );
+
+
+        uploadBox.addEventListener(
+
+            "dragover",
+
+            function(event) {
+
+
+                event.preventDefault();
+
+
+                uploadBox.classList.add(
+                    "dragover"
+                );
+
+            }
+
+        );
+
+
+        uploadBox.addEventListener(
+
+            "dragleave",
+
+            function() {
+
+
+                uploadBox.classList.remove(
+                    "dragover"
+                );
+
+            }
+
+        );
+
+
+        uploadBox.addEventListener(
+
+            "drop",
+
+            function(event) {
+
+
+                event.preventDefault();
+
+
+                uploadBox.classList.remove(
+                    "dragover"
+                );
+
+
+                var files =
+                    event.dataTransfer.files;
+
+
+                if (
+
+                    files &&
+                    files.length > 0
+
+                ) {
+
+
+                    var file =
+                        files[0];
+
+
+                    if (
+                        !file.type.startsWith(
+                            "image/"
+                        )
+                    ) {
+
+
+                        alert(
+                            "Please drop a valid image file."
+                        );
+
+
+                        return;
+
+                    }
+
+
+                    /*
+                     * DataTransfer lets us place the
+                     * dropped file into the hidden
+                     * file input.
+                     */
+
+                    try {
+
+
+                        var dataTransfer =
+                            new DataTransfer();
+
+
+                        dataTransfer.items.add(
+                            file
+                        );
+
+
+                        document
+                            .getElementById(
+                                "fileinput"
+                            )
+                            .files =
+                            dataTransfer.files;
+
+
+                        $("#fileinput").trigger(
+                            "change"
+                        );
+
+
+                    }
+
+                    catch(error) {
+
+
+                        /*
+                         * Fallback for browsers that
+                         * don't support DataTransfer.
+                         */
+
+                        console.log(
+                            "Drag/drop fallback:",
+                            error
+                        );
+
+                    }
+
+                }
+
+            }
+
+        );
+
     });
-
-    $('#uload').click(function(evt) {
-        $('#fileinput').focus().trigger('click');
-    });
-	$("#fileinput").change(function(){
-		if (this.files && this.files[0]){
-			var reader = new FileReader();
-			reader.onload = function (e){
-				var url = e.target.result;
-				var img = new Image();
-				img.crossOrigin = 'Anonymous';
-				img.onload = function(){
-					var canvas = document.createElement('CANVAS');
-					var ctx = canvas.getContext('2d');
-					canvas.height = this.height;
-					canvas.width = this.width;
-					ctx.drawImage(this, 0, 0);
-					base_data = canvas.toDataURL('image/jpeg', 1.0).replace(/^data:image.+;base64,/, '');
-					canvas = null;
-				};
-				img.src = url;
-				$('#photo').attr('src', url);
-				$('#photo').show();
-				$('#video').hide();
-			}
-			reader.readAsDataURL(this.files[0]);
-		}
-	});
-});
 
 </script>
+
+
 </body>
+
 </html>
