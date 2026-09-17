@@ -2,43 +2,8 @@ import json
 import streamlit as st
 import streamlit.components.v1 as components
 from PIL import Image
-import tensorflow as tf
 
-# ============================================================
-# FIX FOR KERAS / TENSORFLOW MODEL LOADING
-# ============================================================
-#
-# Your trained model contains an older CategoricalCrossentropy
-# configuration. Streamlit's current TensorFlow/Keras version
-# tries to deserialize that configuration and produces:
-#
-# CategoricalCrossentropy.__init__() got an unexpected
-# keyword argument 'fn'
-#
-# We patch the load_model function used by PredictionPipeline
-# so that the model is loaded with compile=False.
-#
-# This is correct for prediction/inference because we are not
-# training the model inside Streamlit.
-# ============================================================
-
-import cnnClassifier.pipeline.prediction as prediction_module
-
-
-def load_model_without_compile(*args, **kwargs):
-    kwargs.pop("compile", None)
-
-    return tf.keras.models.load_model(
-        *args,
-        compile=False,
-        **kwargs
-    )
-
-
-# Replace the load_model used inside prediction.py
-prediction_module.load_model = load_model_without_compile
-
-PredictionPipeline = prediction_module.PredictionPipeline
+from cnnClassifier.pipeline.prediction import PredictionPipeline
 
 
 # ============================================================
@@ -103,7 +68,6 @@ st.markdown(
         visibility: hidden;
     }
 
-    /* Hide Streamlit's default footer */
     footer {
         visibility: hidden;
     }
@@ -166,11 +130,6 @@ st.markdown(
             rgba(99, 102, 241, 0.35) !important;
     }
 
-    /* Remove excessive Streamlit spacing */
-    div[data-testid="stVerticalBlock"] {
-        gap: 0.5rem;
-    }
-
     </style>
     """,
     unsafe_allow_html=True
@@ -199,7 +158,7 @@ except Exception as e:
 
     st.error("Unable to load the prediction pipeline.")
 
-    st.code(str(e))
+    st.write(str(e))
 
     st.stop()
 
@@ -238,36 +197,64 @@ components.html(
             body {
                 margin: 0;
                 padding: 0;
+
                 width: 100%;
+
                 background: transparent;
+
                 font-family: "Inter", sans-serif;
+
                 color: white;
             }
 
+
+            /* ================================================
+               NAVBAR
+            ================================================= */
+
             .navbar {
+
                 width: 100%;
+
                 min-height: 78px;
+
                 display: flex;
+
                 align-items: center;
+
                 justify-content: space-between;
+
                 border-bottom:
                     1px solid
                     rgba(255,255,255,0.07);
+
             }
 
+
             .brand {
+
                 display: flex;
+
                 align-items: center;
+
                 gap: 13px;
             }
 
+
             .brand-logo {
+
                 width: 46px;
+
                 height: 46px;
+
                 border-radius: 15px;
+
                 display: flex;
+
                 align-items: center;
+
                 justify-content: center;
+
                 font-size: 23px;
 
                 background:
@@ -282,28 +269,45 @@ components.html(
                     rgba(99,102,241,0.35);
             }
 
+
             .brand-name {
+
                 font-size: 19px;
+
                 font-weight: 800;
+
                 letter-spacing: -0.5px;
             }
 
+
             .brand-name span {
+
                 color: #a5b4fc;
             }
 
+
             .status {
+
                 display: flex;
+
                 align-items: center;
+
                 gap: 9px;
+
                 color: #91a0b8;
+
                 font-size: 12px;
             }
 
+
             .status-dot {
+
                 width: 9px;
+
                 height: 9px;
+
                 border-radius: 50%;
+
                 background: #22c55e;
 
                 box-shadow:
@@ -311,17 +315,28 @@ components.html(
                     rgba(34,197,94,0.85);
             }
 
+
+            /* ================================================
+               HERO
+            ================================================= */
+
             .hero {
+
                 text-align: center;
+
                 padding:
                     50px
                     10px
                     40px;
             }
 
+
             .hero-badge {
+
                 display: inline-flex;
+
                 align-items: center;
+
                 gap: 9px;
 
                 padding:
@@ -340,20 +355,30 @@ components.html(
                 color: #a5b4fc;
 
                 font-size: 12px;
+
                 font-weight: 600;
+
                 margin-bottom: 25px;
             }
 
+
             .hero-title {
+
                 margin: 0;
+
                 font-size:
                     clamp(42px, 6vw, 72px);
+
                 line-height: 1.05;
+
                 letter-spacing: -3px;
+
                 font-weight: 800;
             }
 
+
             .gradient-text {
+
                 background:
                     linear-gradient(
                         90deg,
@@ -363,10 +388,13 @@ components.html(
                     );
 
                 -webkit-background-clip: text;
+
                 -webkit-text-fill-color: transparent;
             }
 
+
             .hero-description {
+
                 max-width: 760px;
 
                 margin:
@@ -379,18 +407,33 @@ components.html(
                 line-height: 1.8;
             }
 
+
+            /* ================================================
+               HERO TAGS
+            ================================================= */
+
             .hero-tags {
+
                 display: flex;
+
                 justify-content: center;
+
                 align-items: center;
+
                 flex-wrap: wrap;
+
                 gap: 10px;
+
                 margin-top: 27px;
             }
 
+
             .hero-tag {
+
                 display: inline-flex;
+
                 align-items: center;
+
                 gap: 7px;
 
                 padding:
@@ -410,37 +453,63 @@ components.html(
                 font-size: 10px;
             }
 
+
             .hero-tag i {
+
                 color: #818cf8;
             }
 
-            @media(max-width:700px) {
+
+            /* ================================================
+               MOBILE
+            ================================================= */
+
+            @media(max-width: 700px) {
+
+                .navbar {
+
+                    padding:
+                        0 5px;
+                }
 
                 .brand-name {
+
                     font-size: 16px;
                 }
 
                 .status {
+
                     display: none;
                 }
 
                 .hero {
+
                     padding-top: 40px;
                 }
 
                 .hero-title {
+
                     font-size: 42px;
+
                     letter-spacing: -2px;
                 }
+
             }
 
         </style>
 
     </head>
 
+
     <body>
 
+
+        <!-- ================================================
+             NAVBAR
+        ================================================= -->
+
         <div class="navbar">
+
 
             <div class="brand">
 
@@ -448,11 +517,15 @@ components.html(
                     🧬
                 </div>
 
+
                 <div class="brand-name">
+
                     Kidney<span>Vision</span> AI
+
                 </div>
 
             </div>
+
 
             <div class="status">
 
@@ -462,10 +535,16 @@ components.html(
 
             </div>
 
+
         </div>
 
 
+        <!-- ================================================
+             HERO
+        ================================================= -->
+
         <section class="hero">
+
 
             <div class="hero-badge">
 
@@ -475,6 +554,7 @@ components.html(
 
             </div>
 
+
             <div class="hero-title">
 
                 Kidney Disease
@@ -482,10 +562,13 @@ components.html(
                 <br>
 
                 <span class="gradient-text">
+
                     Classification
+
                 </span>
 
             </div>
+
 
             <div class="hero-description">
 
@@ -495,31 +578,51 @@ components.html(
 
             </div>
 
+
             <div class="hero-tags">
 
+
                 <div class="hero-tag">
+
                     <i class="fa-solid fa-brain"></i>
+
                     CNN Architecture
+
                 </div>
 
+
                 <div class="hero-tag">
+
                     <i class="fa-solid fa-image"></i>
+
                     Computer Vision
+
                 </div>
 
+
                 <div class="hero-tag">
+
                     <i class="fa-solid fa-bolt"></i>
+
                     Real-Time Prediction
+
                 </div>
 
+
                 <div class="hero-tag">
+
                     <i class="fa-solid fa-fire"></i>
+
                     TensorFlow
+
                 </div>
+
 
             </div>
 
+
         </section>
+
 
     </body>
 
@@ -536,7 +639,10 @@ components.html(
 
 components.html(
     """
+    <!DOCTYPE html>
+
     <html>
+
     <head>
 
         <link
@@ -547,25 +653,42 @@ components.html(
         <style>
 
             body {
+
                 margin: 0;
+
                 background: transparent;
+
                 font-family: "Inter", sans-serif;
+
                 color: white;
             }
 
+
             .header {
-                padding: 8px 0 18px;
+
+                padding:
+                    8px
+                    0
+                    18px;
             }
 
+
             .title {
+
                 font-size: 19px;
+
                 font-weight: 700;
+
                 margin-bottom: 7px;
             }
 
+
             .subtitle {
+
                 color: #8290a6;
+
                 font-size: 11px;
+
                 line-height: 1.6;
             }
 
@@ -573,21 +696,32 @@ components.html(
 
     </head>
 
+
     <body>
+
 
         <div class="header">
 
+
             <div class="title">
+
                 🔬 Kidney Image Analysis
+
             </div>
 
+
             <div class="subtitle">
+
                 Upload a kidney image and let the trained CNN model analyze it.
+
             </div>
+
 
         </div>
 
+
     </body>
+
     </html>
     """,
     height=80,
@@ -611,8 +745,11 @@ left_column, right_column = st.columns(
 
 with left_column:
 
+
     components.html(
         """
+        <!DOCTYPE html>
+
         <html>
 
         <head>
@@ -625,14 +762,21 @@ with left_column:
             <style>
 
                 body {
+
                     margin: 0;
+
                     background: transparent;
+
                     font-family: "Inter", sans-serif;
+
                     color: white;
                 }
 
+
                 .card {
+
                     padding: 25px;
+
                     border-radius: 20px;
 
                     background:
@@ -643,29 +787,47 @@ with left_column:
                         rgba(255,255,255,0.08);
                 }
 
+
                 .step {
+
                     color: #818cf8;
+
                     font-size: 10px;
+
                     font-weight: 700;
+
                     letter-spacing: 1px;
+
                     margin-bottom: 9px;
+
                     text-transform: uppercase;
                 }
 
+
                 .title {
+
                     font-size: 18px;
+
                     font-weight: 700;
+
                     margin-bottom: 7px;
                 }
 
+
                 .subtitle {
+
                     color: #7f8ba1;
+
                     font-size: 11px;
+
                     margin-bottom: 22px;
                 }
 
+
                 .upload-info {
+
                     padding: 20px;
+
                     border-radius: 17px;
 
                     background:
@@ -680,20 +842,31 @@ with left_column:
                         rgba(129,140,248,0.15);
                 }
 
+
                 .upload-icon {
+
                     font-size: 29px;
+
                     margin-bottom: 9px;
                 }
 
+
                 .upload-title {
+
                     font-size: 14px;
+
                     font-weight: 700;
+
                     margin-bottom: 5px;
                 }
 
+
                 .upload-text {
+
                     color: #7f8ba1;
+
                     font-size: 11px;
+
                     line-height: 1.6;
                 }
 
@@ -701,39 +874,51 @@ with left_column:
 
         </head>
 
+
         <body>
 
+
             <div class="card">
+
 
                 <div class="step">
                     Step 01
                 </div>
 
+
                 <div class="title">
                     Upload Kidney Image
                 </div>
+
 
                 <div class="subtitle">
                     Select an image or drag and drop it here.
                 </div>
 
+
                 <div class="upload-info">
+
 
                     <div class="upload-icon">
                         ☁️
                     </div>
 
+
                     <div class="upload-title">
                         Choose your kidney image
                     </div>
+
 
                     <div class="upload-text">
                         PNG, JPG or JPEG • Recommended medical image format
                     </div>
 
+
                 </div>
 
+
             </div>
+
 
         </body>
 
@@ -744,9 +929,9 @@ with left_column:
     )
 
 
-    # ========================================================
+    # --------------------------------------------------------
     # STREAMLIT UPLOADER
-    # ========================================================
+    # --------------------------------------------------------
 
     uploaded_file = st.file_uploader(
         "Upload Kidney Image",
@@ -755,9 +940,9 @@ with left_column:
     )
 
 
-    # ========================================================
+    # --------------------------------------------------------
     # IMAGE PREVIEW
-    # ========================================================
+    # --------------------------------------------------------
 
     if uploaded_file is not None:
 
@@ -775,8 +960,11 @@ with left_column:
 
 with right_column:
 
+
     components.html(
         """
+        <!DOCTYPE html>
+
         <html>
 
         <head>
@@ -789,15 +977,23 @@ with right_column:
             <style>
 
                 body {
+
                     margin: 0;
+
                     background: transparent;
+
                     font-family: "Inter", sans-serif;
+
                     color: white;
                 }
 
+
                 .card {
+
                     min-height: 230px;
+
                     padding: 25px;
+
                     border-radius: 20px;
 
                     background:
@@ -812,29 +1008,47 @@ with right_column:
                         rgba(129,140,248,0.14);
                 }
 
+
                 .step {
+
                     color: #818cf8;
+
                     font-size: 10px;
+
                     font-weight: 700;
+
                     letter-spacing: 1px;
+
                     text-transform: uppercase;
+
                     margin-bottom: 15px;
                 }
 
+
                 .icon {
+
                     font-size: 32px;
+
                     margin-bottom: 13px;
                 }
 
+
                 .title {
+
                     font-size: 19px;
+
                     font-weight: 700;
+
                     margin-bottom: 9px;
                 }
 
+
                 .text {
+
                     color: #7f8ba1;
+
                     font-size: 11px;
+
                     line-height: 1.8;
                 }
 
@@ -842,21 +1056,27 @@ with right_column:
 
         </head>
 
+
         <body>
 
+
             <div class="card">
+
 
                 <div class="step">
                     Step 02
                 </div>
 
+
                 <div class="icon">
                     🧠
                 </div>
 
+
                 <div class="title">
                     AI Prediction
                 </div>
+
 
                 <div class="text">
 
@@ -866,7 +1086,9 @@ with right_column:
 
                 </div>
 
+
             </div>
+
 
         </body>
 
@@ -877,26 +1099,30 @@ with right_column:
     )
 
 
-    # ========================================================
+    # --------------------------------------------------------
     # PREDICT BUTTON
-    # ========================================================
+    # --------------------------------------------------------
 
     if uploaded_file is not None:
+
 
         if st.button(
             "🔍  Analyze Kidney Image",
             key="analyze_button"
         ):
 
+
             try:
 
-                # ==================================================
+
+                # ============================================
                 # SAVE IMAGE
-                # ==================================================
+                # ============================================
 
                 image = Image.open(
                     uploaded_file
                 ).convert("RGB")
+
 
                 image.save(
                     "inputImage.jpg",
@@ -904,9 +1130,9 @@ with right_column:
                 )
 
 
-                # ==================================================
+                # ============================================
                 # RUN MODEL
-                # ==================================================
+                # ============================================
 
                 with st.spinner(
                     "Analyzing kidney image..."
@@ -915,28 +1141,43 @@ with right_column:
                     result = classifier.predict()
 
 
-                # ==================================================
-                # SUCCESS MESSAGE
-                # ==================================================
+                # ============================================
+                # SUCCESS RESULT CARD
+                # ============================================
 
                 components.html(
                     """
+                    <!DOCTYPE html>
+
                     <html>
 
                     <head>
 
+                        <link
+                            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+                            rel="stylesheet"
+                        >
+
                         <style>
 
                             body {
+
                                 margin: 0;
+
                                 background: transparent;
+
                                 font-family: "Inter", sans-serif;
+
                                 color: white;
                             }
 
+
                             .result {
+
                                 margin-top: 16px;
+
                                 padding: 20px;
+
                                 border-radius: 18px;
 
                                 background:
@@ -947,15 +1188,23 @@ with right_column:
                                     rgba(34,197,94,0.18);
                             }
 
+
                             .heading {
+
                                 font-size: 15px;
+
                                 font-weight: 700;
+
                                 margin-bottom: 6px;
                             }
 
+
                             .text {
+
                                 color: #8290a6;
+
                                 font-size: 11px;
+
                                 line-height: 1.6;
                             }
 
@@ -963,20 +1212,30 @@ with right_column:
 
                     </head>
 
+
                     <body>
+
 
                         <div class="result">
 
+
                             <div class="heading">
+
                                 ✅ Prediction Completed
+
                             </div>
+
 
                             <div class="text">
+
                                 The CNN model has successfully
                                 analyzed the uploaded kidney image.
+
                             </div>
 
+
                         </div>
+
 
                     </body>
 
@@ -987,9 +1246,9 @@ with right_column:
                 )
 
 
-                # ==================================================
+                # ============================================
                 # FORMAT RESULT
-                # ==================================================
+                # ============================================
 
                 if isinstance(result, dict):
 
@@ -1004,9 +1263,9 @@ with right_column:
                     result_text = str(result)
 
 
-                # ==================================================
+                # ============================================
                 # RESULT DISPLAY
-                # ==================================================
+                # ============================================
 
                 st.markdown(
                     f"""
@@ -1024,7 +1283,8 @@ with right_column:
 
                         color:#dbe4f5;
 
-                        font-family:monospace;
+                        font-family:
+                            monospace;
 
                         font-size:12px;
 
@@ -1041,13 +1301,14 @@ with right_column:
 
             except Exception as e:
 
+
                 st.error(
                     "Prediction failed: " + str(e)
                 )
 
 
 # ============================================================
-# ABOUT SECTION
+# ABOUT SECTION HEADER
 # ============================================================
 
 st.write("")
@@ -1056,32 +1317,56 @@ st.write("")
 
 components.html(
     """
+    <!DOCTYPE html>
+
     <html>
 
     <head>
 
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        >
+
         <style>
 
             body {
+
                 margin: 0;
+
                 background: transparent;
+
                 font-family: "Inter", sans-serif;
+
                 color: white;
             }
 
+
             .heading {
+
                 text-align: center;
-                padding: 25px 0 22px;
+
+                padding:
+                    25px
+                    0
+                    22px;
             }
 
+
             .title {
+
                 font-size: 25px;
+
                 font-weight: 800;
             }
 
+
             .subtitle {
+
                 color: #7f8ba1;
+
                 font-size: 11px;
+
                 margin-top: 8px;
             }
 
@@ -1089,19 +1374,25 @@ components.html(
 
     </head>
 
+
     <body>
 
+
         <div class="heading">
+
 
             <div class="title">
                 About The Application
             </div>
 
+
             <div class="subtitle">
                 Built as an end-to-end Deep Learning project
             </div>
 
+
         </div>
+
 
     </body>
 
@@ -1124,22 +1415,37 @@ def create_info_card(
 
     components.html(
         f"""
+        <!DOCTYPE html>
+
         <html>
 
         <head>
 
+            <link
+                href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+                rel="stylesheet"
+            >
+
             <style>
 
                 body {{
+
                     margin: 0;
+
                     background: transparent;
+
                     font-family: "Inter", sans-serif;
+
                     color: white;
                 }}
 
+
                 .card {{
+
                     min-height: 180px;
+
                     padding: 24px;
+
                     border-radius: 20px;
 
                     background:
@@ -1154,20 +1460,31 @@ def create_info_card(
                         rgba(0,0,0,0.15);
                 }}
 
+
                 .icon {{
+
                     font-size: 25px;
+
                     margin-bottom: 15px;
                 }}
 
+
                 .title {{
+
                     font-size: 14px;
+
                     font-weight: 700;
+
                     margin-bottom: 9px;
                 }}
 
+
                 .description {{
+
                     color: #7f8ba1;
+
                     font-size: 11px;
+
                     line-height: 1.75;
                 }}
 
@@ -1175,23 +1492,30 @@ def create_info_card(
 
         </head>
 
+
         <body>
 
+
             <div class="card">
+
 
                 <div class="icon">
                     {icon}
                 </div>
 
+
                 <div class="title">
                     {title}
                 </div>
+
 
                 <div class="description">
                     {description}
                 </div>
 
+
             </div>
+
 
         </body>
 
@@ -1245,18 +1569,30 @@ with info_col3:
 
 components.html(
     """
+    <!DOCTYPE html>
+
     <html>
 
     <head>
 
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        >
+
         <style>
 
             body {
+
                 margin: 0;
+
                 background: transparent;
+
                 font-family: "Inter", sans-serif;
+
                 color: white;
             }
+
 
             .developer {
 
@@ -1288,10 +1624,17 @@ components.html(
                     rgba(0,0,0,0.20);
             }
 
+
+            /* =============================================
+               PROFILE IMAGE
+            ============================================== */
+
             .avatar {
 
                 width: 82px;
+
                 height: 82px;
+
                 min-width: 82px;
 
                 border-radius: 50%;
@@ -1315,9 +1658,11 @@ components.html(
                     );
             }
 
+
             .avatar img {
 
                 width: 100%;
+
                 height: 100%;
 
                 object-fit: cover;
@@ -1325,9 +1670,12 @@ components.html(
                 display: block;
             }
 
+
             .developer-content {
+
                 flex: 1;
             }
+
 
             .name {
 
@@ -1340,6 +1688,7 @@ components.html(
                 margin-bottom: 5px;
             }
 
+
             .role {
 
                 color: #8f9bb1;
@@ -1349,6 +1698,7 @@ components.html(
                 margin-bottom: 12px;
             }
 
+
             .tags {
 
                 display: flex;
@@ -1357,6 +1707,7 @@ components.html(
 
                 gap: 7px;
             }
+
 
             .tag {
 
@@ -1379,14 +1730,18 @@ components.html(
                 font-weight: 600;
             }
 
+
             @media(max-width:600px) {
 
                 .developer {
+
                     flex-direction: column;
+
                     text-align: center;
                 }
 
                 .tags {
+
                     justify-content: center;
                 }
 
@@ -1396,9 +1751,12 @@ components.html(
 
     </head>
 
+
     <body>
 
+
         <div class="developer">
+
 
             <div class="avatar">
 
@@ -1409,43 +1767,60 @@ components.html(
 
             </div>
 
+
             <div class="developer-content">
 
+
                 <div class="name">
+
                     Divyadarshan Srivastava
+
                 </div>
+
 
                 <div class="role">
+
                     AI/ML Engineer • Deep Learning
+
                 </div>
 
+
                 <div class="tags">
+
 
                     <div class="tag">
                         Python
                     </div>
 
+
                     <div class="tag">
                         TensorFlow
                     </div>
+
 
                     <div class="tag">
                         CNN
                     </div>
 
+
                     <div class="tag">
                         Deep Learning
                     </div>
+
 
                     <div class="tag">
                         Streamlit
                     </div>
 
+
                 </div>
+
 
             </div>
 
+
         </div>
+
 
     </body>
 
@@ -1457,111 +1832,209 @@ components.html(
 
 
 # ============================================================
-# DISCLAIMER
+# DISCLAIMER + FOOTER
 # ============================================================
 
-st.markdown(
+components.html(
     """
-    <div style="
-        margin-top:25px;
-        padding:17px 20px;
-        border-radius:14px;
+    <!DOCTYPE html>
 
-        background:rgba(245,158,11,0.045);
+    <html>
 
-        border:1px solid rgba(245,158,11,0.13);
+    <head>
 
-        color:#818ca0;
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        >
 
-        font-family:Inter,sans-serif;
+        <style>
 
-        font-size:10px;
+            body {
 
-        line-height:1.75;
-    ">
+                margin: 0;
 
-        <strong style="color:#fbbf24;">
-            ⚠️ Medical Disclaimer:
-        </strong>
+                background: transparent;
 
-        This application is developed for educational and
-        demonstration purposes only. The AI-generated
-        classification should not be considered a medical
-        diagnosis or a substitute for professional medical
-        advice, examination or treatment.
+                font-family: "Inter", sans-serif;
 
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+                color: white;
+            }
 
 
-# ============================================================
-# CUSTOM FOOTER
-# ============================================================
-#
-# IMPORTANT:
-# This is intentionally rendered using st.markdown instead
-# of components.html().
-#
-# This prevents the footer from being trapped inside an iframe
-# and guarantees the credit is visible.
-# ============================================================
+            .disclaimer {
 
-st.markdown(
-    """
-    <div style="
-        width:100%;
-        text-align:center;
+                margin-top: 25px;
 
-        margin-top:18px;
+                padding:
+                    17px 20px;
 
-        padding:
-            18px 10px 25px;
+                border-radius: 14px;
 
-        border-top:
-            1px solid
-            rgba(255,255,255,0.07);
+                background:
+                    rgba(245,158,11,0.045);
 
-        font-family:Inter,sans-serif;
+                border:
+                    1px solid
+                    rgba(245,158,11,0.13);
 
-        line-height:1.6;
-    ">
+                color: #818ca0;
 
-        <div style="
-            color:#aab5c8;
-            font-size:11px;
-            font-weight:600;
-            margin-bottom:7px;
-        ">
+                font-size: 10px;
 
-            KidneyVision AI
-            <span style="color:#596579;">&nbsp; • &nbsp;</span>
-            Deep Learning Kidney Disease Classification
+                line-height: 1.75;
+            }
+
+
+            .disclaimer strong {
+
+                color: #fbbf24;
+            }
+
+
+            .footer {
+
+                width: 100%;
+
+                text-align: center;
+
+                margin-top: 18px;
+
+                padding:
+                    14px
+                    10px
+                    14px;
+
+                border-top:
+                    1px solid
+                    rgba(255,255,255,0.07);
+
+                color: #8f9bb1;
+
+                font-size: 11px;
+
+                line-height: 1.5;
+
+                overflow: visible;
+            }
+
+
+            .footer-title {
+
+                color: #aab5c8;
+
+                font-weight: 600;
+
+                margin-bottom: 5px;
+
+                white-space: normal;
+            }
+
+
+            .footer-credit {
+
+                display: block;
+
+                min-height: 22px;
+
+                color: #8f9bb1;
+
+                font-size: 11px;
+
+                font-weight: 500;
+
+                line-height: 22px;
+
+                white-space: nowrap;
+            }
+
+
+            .footer-heart {
+
+                color: #f472b6;
+
+                font-size: 15px;
+
+                padding:
+                    0 3px;
+            }
+
+
+            .footer-name {
+
+                color: #a5b4fc;
+
+                font-weight: 700;
+            }
+
+        </style>
+
+    </head>
+
+
+    <body>
+
+
+        <!-- ================================================
+             DISCLAIMER
+        ================================================= -->
+
+
+        <div class="disclaimer">
+
+
+            <strong>
+                ⚠️ Medical Disclaimer:
+            </strong>
+
+
+            This application is developed for educational and
+            demonstration purposes only. The AI-generated
+            classification should not be considered a medical
+            diagnosis or a substitute for professional medical
+            advice, examination or treatment.
+
 
         </div>
 
-        <div style="
-            color:#8f9bb1;
-            font-size:11px;
-            font-weight:500;
-        ">
 
-            Made with
-            <span style="
-                color:#f472b6;
-                font-size:15px;
-                padding:0 4px;
-            ">❤️</span>
-            by
-            <span style="
-                color:#a5b4fc;
-                font-weight:700;
-            ">Divyadarshan Srivastava</span>
+        <!-- ================================================
+             FOOTER
+        ================================================= -->
+
+
+        <div class="footer">
+
+
+            <div class="footer-title">
+
+                KidneyVision AI
+                &nbsp; • &nbsp;
+                Deep Learning Kidney Disease Classification
+
+            </div>
+
+
+            <div class="footer-credit">
+
+                Made with
+
+                <span class="footer-heart">❤️</span>
+
+                by
+
+                <span class="footer-name">Divyadarshan Srivastava</span>
+
+            </div>
+
 
         </div>
 
-    </div>
+
+    </body>
+
+    </html>
     """,
-    unsafe_allow_html=True
+    height=145,
+    scrolling=False
 )
