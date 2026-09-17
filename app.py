@@ -1,4 +1,3 @@
-import json
 import streamlit as st
 import streamlit.components.v1 as components
 from PIL import Image
@@ -94,17 +93,11 @@ st.markdown(
     .stButton > button {
         width: 100%;
         min-height: 48px;
-
         border-radius: 13px !important;
-
         border: none !important;
-
         color: white !important;
-
         font-family: "Inter", sans-serif !important;
-
         font-size: 13px !important;
-
         font-weight: 700 !important;
 
         background:
@@ -140,7 +133,6 @@ st.markdown(
 # LOAD PREDICTION PIPELINE
 # ============================================================
 
-@st.cache_resource
 def load_prediction_pipeline():
 
     filename = "inputImage.jpg"
@@ -157,9 +149,7 @@ try:
 except Exception as e:
 
     st.error("Unable to load the prediction pipeline.")
-
     st.write(str(e))
-
     st.stop()
 
 
@@ -197,64 +187,36 @@ components.html(
             body {
                 margin: 0;
                 padding: 0;
-
                 width: 100%;
-
                 background: transparent;
-
                 font-family: "Inter", sans-serif;
-
                 color: white;
             }
 
-
-            /* ================================================
-               NAVBAR
-            ================================================= */
-
             .navbar {
-
                 width: 100%;
-
                 min-height: 78px;
-
                 display: flex;
-
                 align-items: center;
-
                 justify-content: space-between;
-
                 border-bottom:
                     1px solid
                     rgba(255,255,255,0.07);
-
             }
 
-
             .brand {
-
                 display: flex;
-
                 align-items: center;
-
                 gap: 13px;
             }
 
-
             .brand-logo {
-
                 width: 46px;
-
                 height: 46px;
-
                 border-radius: 15px;
-
                 display: flex;
-
                 align-items: center;
-
                 justify-content: center;
-
                 font-size: 23px;
 
                 background:
@@ -269,45 +231,28 @@ components.html(
                     rgba(99,102,241,0.35);
             }
 
-
             .brand-name {
-
                 font-size: 19px;
-
                 font-weight: 800;
-
                 letter-spacing: -0.5px;
             }
 
-
             .brand-name span {
-
                 color: #a5b4fc;
             }
 
-
             .status {
-
                 display: flex;
-
                 align-items: center;
-
                 gap: 9px;
-
                 color: #91a0b8;
-
                 font-size: 12px;
             }
 
-
             .status-dot {
-
                 width: 9px;
-
                 height: 9px;
-
                 border-radius: 50%;
-
                 background: #22c55e;
 
                 box-shadow:
@@ -315,28 +260,17 @@ components.html(
                     rgba(34,197,94,0.85);
             }
 
-
-            /* ================================================
-               HERO
-            ================================================= */
-
             .hero {
-
                 text-align: center;
-
                 padding:
                     50px
                     10px
                     40px;
             }
 
-
             .hero-badge {
-
                 display: inline-flex;
-
                 align-items: center;
-
                 gap: 9px;
 
                 padding:
@@ -355,30 +289,22 @@ components.html(
                 color: #a5b4fc;
 
                 font-size: 12px;
-
                 font-weight: 600;
 
                 margin-bottom: 25px;
             }
 
-
             .hero-title {
-
                 margin: 0;
-
                 font-size:
                     clamp(42px, 6vw, 72px);
 
                 line-height: 1.05;
-
                 letter-spacing: -3px;
-
                 font-weight: 800;
             }
 
-
             .gradient-text {
-
                 background:
                     linear-gradient(
                         90deg,
@@ -388,52 +314,32 @@ components.html(
                     );
 
                 -webkit-background-clip: text;
-
                 -webkit-text-fill-color: transparent;
             }
 
-
             .hero-description {
-
                 max-width: 760px;
 
                 margin:
                     24px auto 0;
 
                 color: #8f9bb1;
-
                 font-size: 14px;
-
                 line-height: 1.8;
             }
 
-
-            /* ================================================
-               HERO TAGS
-            ================================================= */
-
             .hero-tags {
-
                 display: flex;
-
                 justify-content: center;
-
                 align-items: center;
-
                 flex-wrap: wrap;
-
                 gap: 10px;
-
                 margin-top: 27px;
             }
 
-
             .hero-tag {
-
                 display: inline-flex;
-
                 align-items: center;
-
                 gap: 7px;
 
                 padding:
@@ -449,48 +355,34 @@ components.html(
                     rgba(255,255,255,0.07);
 
                 color: #9da9bd;
-
                 font-size: 10px;
             }
 
-
             .hero-tag i {
-
                 color: #818cf8;
             }
-
-
-            /* ================================================
-               MOBILE
-            ================================================= */
 
             @media(max-width: 700px) {
 
                 .navbar {
-
                     padding:
                         0 5px;
                 }
 
                 .brand-name {
-
                     font-size: 16px;
                 }
 
                 .status {
-
                     display: none;
                 }
 
                 .hero {
-
                     padding-top: 40px;
                 }
 
                 .hero-title {
-
                     font-size: 42px;
-
                     letter-spacing: -2px;
                 }
 
@@ -500,16 +392,9 @@ components.html(
 
     </head>
 
-
     <body>
 
-
-        <!-- ================================================
-             NAVBAR
-        ================================================= -->
-
         <div class="navbar">
-
 
             <div class="brand">
 
@@ -517,15 +402,11 @@ components.html(
                     🧬
                 </div>
 
-
                 <div class="brand-name">
-
                     Kidney<span>Vision</span> AI
-
                 </div>
 
             </div>
-
 
             <div class="status">
 
@@ -535,16 +416,10 @@ components.html(
 
             </div>
 
-
         </div>
 
 
-        <!-- ================================================
-             HERO
-        ================================================= -->
-
         <section class="hero">
-
 
             <div class="hero-badge">
 
@@ -554,7 +429,6 @@ components.html(
 
             </div>
 
-
             <div class="hero-title">
 
                 Kidney Disease
@@ -562,13 +436,10 @@ components.html(
                 <br>
 
                 <span class="gradient-text">
-
                     Classification
-
                 </span>
 
             </div>
-
 
             <div class="hero-description">
 
@@ -578,51 +449,31 @@ components.html(
 
             </div>
 
-
             <div class="hero-tags">
 
-
                 <div class="hero-tag">
-
                     <i class="fa-solid fa-brain"></i>
-
                     CNN Architecture
-
                 </div>
 
-
                 <div class="hero-tag">
-
                     <i class="fa-solid fa-image"></i>
-
                     Computer Vision
-
                 </div>
 
-
                 <div class="hero-tag">
-
                     <i class="fa-solid fa-bolt"></i>
-
                     Real-Time Prediction
-
                 </div>
-
 
                 <div class="hero-tag">
-
                     <i class="fa-solid fa-fire"></i>
-
                     TensorFlow
-
                 </div>
-
 
             </div>
 
-
         </section>
-
 
     </body>
 
@@ -653,42 +504,28 @@ components.html(
         <style>
 
             body {
-
                 margin: 0;
-
                 background: transparent;
-
                 font-family: "Inter", sans-serif;
-
                 color: white;
             }
 
-
             .header {
-
                 padding:
                     8px
                     0
                     18px;
             }
 
-
             .title {
-
                 font-size: 19px;
-
                 font-weight: 700;
-
                 margin-bottom: 7px;
             }
 
-
             .subtitle {
-
                 color: #8290a6;
-
                 font-size: 11px;
-
                 line-height: 1.6;
             }
 
@@ -696,29 +533,19 @@ components.html(
 
     </head>
 
-
     <body>
-
 
         <div class="header">
 
-
             <div class="title">
-
                 🔬 Kidney Image Analysis
-
             </div>
-
 
             <div class="subtitle">
-
                 Upload a kidney image and let the trained CNN model analyze it.
-
             </div>
 
-
         </div>
-
 
     </body>
 
@@ -745,7 +572,6 @@ left_column, right_column = st.columns(
 
 with left_column:
 
-
     components.html(
         """
         <!DOCTYPE html>
@@ -762,21 +588,14 @@ with left_column:
             <style>
 
                 body {
-
                     margin: 0;
-
                     background: transparent;
-
                     font-family: "Inter", sans-serif;
-
                     color: white;
                 }
 
-
                 .card {
-
                     padding: 25px;
-
                     border-radius: 20px;
 
                     background:
@@ -787,47 +606,29 @@ with left_column:
                         rgba(255,255,255,0.08);
                 }
 
-
                 .step {
-
                     color: #818cf8;
-
                     font-size: 10px;
-
                     font-weight: 700;
-
                     letter-spacing: 1px;
-
                     margin-bottom: 9px;
-
                     text-transform: uppercase;
                 }
 
-
                 .title {
-
                     font-size: 18px;
-
                     font-weight: 700;
-
                     margin-bottom: 7px;
                 }
 
-
                 .subtitle {
-
                     color: #7f8ba1;
-
                     font-size: 11px;
-
                     margin-bottom: 22px;
                 }
 
-
                 .upload-info {
-
                     padding: 20px;
-
                     border-radius: 17px;
 
                     background:
@@ -842,31 +643,20 @@ with left_column:
                         rgba(129,140,248,0.15);
                 }
 
-
                 .upload-icon {
-
                     font-size: 29px;
-
                     margin-bottom: 9px;
                 }
 
-
                 .upload-title {
-
                     font-size: 14px;
-
                     font-weight: 700;
-
                     margin-bottom: 5px;
                 }
 
-
                 .upload-text {
-
                     color: #7f8ba1;
-
                     font-size: 11px;
-
                     line-height: 1.6;
                 }
 
@@ -874,51 +664,39 @@ with left_column:
 
         </head>
 
-
         <body>
 
-
             <div class="card">
-
 
                 <div class="step">
                     Step 01
                 </div>
 
-
                 <div class="title">
                     Upload Kidney Image
                 </div>
-
 
                 <div class="subtitle">
                     Select an image or drag and drop it here.
                 </div>
 
-
                 <div class="upload-info">
-
 
                     <div class="upload-icon">
                         ☁️
                     </div>
 
-
                     <div class="upload-title">
                         Choose your kidney image
                     </div>
-
 
                     <div class="upload-text">
                         PNG, JPG or JPEG • Recommended medical image format
                     </div>
 
-
                 </div>
 
-
             </div>
-
 
         </body>
 
@@ -946,10 +724,12 @@ with left_column:
 
     if uploaded_file is not None:
 
-        image = Image.open(uploaded_file).convert("RGB")
+        uploaded_image = Image.open(
+            uploaded_file
+        ).convert("RGB")
 
         st.image(
-            image,
+            uploaded_image,
             use_container_width=True
         )
 
@@ -959,7 +739,6 @@ with left_column:
 # ============================================================
 
 with right_column:
-
 
     components.html(
         """
@@ -977,23 +756,15 @@ with right_column:
             <style>
 
                 body {
-
                     margin: 0;
-
                     background: transparent;
-
                     font-family: "Inter", sans-serif;
-
                     color: white;
                 }
 
-
                 .card {
-
                     min-height: 230px;
-
                     padding: 25px;
-
                     border-radius: 20px;
 
                     background:
@@ -1008,47 +779,29 @@ with right_column:
                         rgba(129,140,248,0.14);
                 }
 
-
                 .step {
-
                     color: #818cf8;
-
                     font-size: 10px;
-
                     font-weight: 700;
-
                     letter-spacing: 1px;
-
                     text-transform: uppercase;
-
                     margin-bottom: 15px;
                 }
 
-
                 .icon {
-
                     font-size: 32px;
-
                     margin-bottom: 13px;
                 }
 
-
                 .title {
-
                     font-size: 19px;
-
                     font-weight: 700;
-
                     margin-bottom: 9px;
                 }
 
-
                 .text {
-
                     color: #7f8ba1;
-
                     font-size: 11px;
-
                     line-height: 1.8;
                 }
 
@@ -1056,27 +809,21 @@ with right_column:
 
         </head>
 
-
         <body>
 
-
             <div class="card">
-
 
                 <div class="step">
                     Step 02
                 </div>
 
-
                 <div class="icon">
                     🧠
                 </div>
 
-
                 <div class="title">
                     AI Prediction
                 </div>
-
 
                 <div class="text">
 
@@ -1086,9 +833,7 @@ with right_column:
 
                 </div>
 
-
             </div>
-
 
         </body>
 
@@ -1105,26 +850,22 @@ with right_column:
 
     if uploaded_file is not None:
 
-
         if st.button(
             "🔍  Analyze Kidney Image",
             key="analyze_button"
         ):
 
-
             try:
-
 
                 # ============================================
                 # SAVE IMAGE
                 # ============================================
 
-                image = Image.open(
+                uploaded_image = Image.open(
                     uploaded_file
                 ).convert("RGB")
 
-
-                image.save(
+                uploaded_image.save(
                     "inputImage.jpg",
                     format="JPEG"
                 )
@@ -1142,165 +883,264 @@ with right_column:
 
 
                 # ============================================
-                # SUCCESS RESULT CARD
+                # PREDICTION EXTRACTION
                 # ============================================
 
-                components.html(
-                    """
-                    <!DOCTYPE html>
+                prediction = "Unknown"
 
-                    <html>
+                if isinstance(result, list):
 
-                    <head>
+                    if len(result) > 0 and isinstance(result[0], dict):
 
-                        <link
-                            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-                            rel="stylesheet"
-                        >
+                        prediction = result[0].get(
+                            "image",
+                            "Unknown"
+                        )
 
-                        <style>
+                elif isinstance(result, dict):
 
-                            body {
-
-                                margin: 0;
-
-                                background: transparent;
-
-                                font-family: "Inter", sans-serif;
-
-                                color: white;
-                            }
-
-
-                            .result {
-
-                                margin-top: 16px;
-
-                                padding: 20px;
-
-                                border-radius: 18px;
-
-                                background:
-                                    rgba(34,197,94,0.055);
-
-                                border:
-                                    1px solid
-                                    rgba(34,197,94,0.18);
-                            }
-
-
-                            .heading {
-
-                                font-size: 15px;
-
-                                font-weight: 700;
-
-                                margin-bottom: 6px;
-                            }
-
-
-                            .text {
-
-                                color: #8290a6;
-
-                                font-size: 11px;
-
-                                line-height: 1.6;
-                            }
-
-                        </style>
-
-                    </head>
-
-
-                    <body>
-
-
-                        <div class="result">
-
-
-                            <div class="heading">
-
-                                ✅ Prediction Completed
-
-                            </div>
-
-
-                            <div class="text">
-
-                                The CNN model has successfully
-                                analyzed the uploaded kidney image.
-
-                            </div>
-
-
-                        </div>
-
-
-                    </body>
-
-                    </html>
-                    """,
-                    height=105,
-                    scrolling=False
-                )
-
-
-                # ============================================
-                # FORMAT RESULT
-                # ============================================
-
-                if isinstance(result, dict):
-
-                    result_text = json.dumps(
-                        result,
-                        indent=2,
-                        default=str
+                    prediction = result.get(
+                        "image",
+                        "Unknown"
                     )
 
                 else:
 
-                    result_text = str(result)
+                    prediction = str(result)
 
 
                 # ============================================
-                # RESULT DISPLAY
+                # SUCCESS MESSAGE
                 # ============================================
 
-                st.markdown(
-                    f"""
-                    <div style="
-                        margin-top:10px;
-                        padding:18px;
-                        border-radius:15px;
+                if prediction == "Tumor":
 
-                        background:
-                            rgba(3,7,18,0.60);
+                    components.html(
+                        """
+                        <!DOCTYPE html>
 
-                        border:
-                            1px solid
-                            rgba(255,255,255,0.07);
+                        <html>
 
-                        color:#dbe4f5;
+                        <head>
 
-                        font-family:
-                            monospace;
+                            <style>
 
-                        font-size:12px;
+                                body {
+                                    margin: 0;
+                                    background: transparent;
+                                    font-family: Inter, Arial, sans-serif;
+                                }
 
-                        line-height:1.7;
+                                .result {
+                                    margin-top: 16px;
+                                    padding: 22px;
+                                    border-radius: 18px;
 
-                        white-space:pre-wrap;
+                                    background:
+                                        rgba(239,68,68,0.08);
 
-                        overflow-x:auto;
-                    ">{result_text}</div>
-                    """,
-                    unsafe_allow_html=True
-                )
+                                    border:
+                                        1px solid
+                                        rgba(239,68,68,0.25);
+
+                                    color: white;
+
+                                    box-shadow:
+                                        0 10px 30px
+                                        rgba(0,0,0,0.12);
+                                }
+
+                                .heading {
+                                    font-size: 18px;
+                                    font-weight: 700;
+                                    margin-bottom: 8px;
+                                }
+
+                                .text {
+                                    color: #9ca9bd;
+                                    font-size: 12px;
+                                    line-height: 1.7;
+                                }
+
+                            </style>
+
+                        </head>
+
+                        <body>
+
+                            <div class="result">
+
+                                <div class="heading">
+                                    🔴 Tumor Detected
+                                </div>
+
+                                <div class="text">
+                                    The CNN model classified the uploaded
+                                    kidney image as Tumor.
+                                </div>
+
+                            </div>
+
+                        </body>
+
+                        </html>
+                        """,
+                        height=125,
+                        scrolling=False
+                    )
+
+
+                elif prediction == "Normal":
+
+                    components.html(
+                        """
+                        <!DOCTYPE html>
+
+                        <html>
+
+                        <head>
+
+                            <style>
+
+                                body {
+                                    margin: 0;
+                                    background: transparent;
+                                    font-family: Inter, Arial, sans-serif;
+                                }
+
+                                .result {
+                                    margin-top: 16px;
+                                    padding: 22px;
+                                    border-radius: 18px;
+
+                                    background:
+                                        rgba(34,197,94,0.07);
+
+                                    border:
+                                        1px solid
+                                        rgba(34,197,94,0.22);
+
+                                    color: white;
+
+                                    box-shadow:
+                                        0 10px 30px
+                                        rgba(0,0,0,0.12);
+                                }
+
+                                .heading {
+                                    font-size: 18px;
+                                    font-weight: 700;
+                                    margin-bottom: 8px;
+                                }
+
+                                .text {
+                                    color: #9ca9bd;
+                                    font-size: 12px;
+                                    line-height: 1.7;
+                                }
+
+                            </style>
+
+                        </head>
+
+                        <body>
+
+                            <div class="result">
+
+                                <div class="heading">
+                                    🟢 Normal Kidney Image
+                                </div>
+
+                                <div class="text">
+                                    The CNN model classified the uploaded
+                                    kidney image as Normal.
+                                </div>
+
+                            </div>
+
+                        </body>
+
+                        </html>
+                        """,
+                        height=125,
+                        scrolling=False
+                    )
+
+
+                else:
+
+                    components.html(
+                        f"""
+                        <!DOCTYPE html>
+
+                        <html>
+
+                        <head>
+
+                            <style>
+
+                                body {{
+                                    margin: 0;
+                                    background: transparent;
+                                    font-family: Inter, Arial, sans-serif;
+                                }}
+
+                                .result {{
+                                    margin-top: 16px;
+                                    padding: 22px;
+                                    border-radius: 18px;
+
+                                    background:
+                                        rgba(129,140,248,0.08);
+
+                                    border:
+                                        1px solid
+                                        rgba(129,140,248,0.22);
+
+                                    color: white;
+                                }}
+
+                                .heading {{
+                                    font-size: 18px;
+                                    font-weight: 700;
+                                    margin-bottom: 8px;
+                                }}
+
+                                .text {{
+                                    color: #9ca9bd;
+                                    font-size: 12px;
+                                    line-height: 1.7;
+                                }}
+
+                            </style>
+
+                        </head>
+
+                        <body>
+
+                            <div class="result">
+
+                                <div class="heading">
+                                    🧠 Prediction Result
+                                </div>
+
+                                <div class="text">
+                                    Classification result:
+                                    {prediction}
+                                </div>
+
+                            </div>
+
+                        </body>
+
+                        </html>
+                        """,
+                        height=125,
+                        scrolling=False
+                    )
 
 
             except Exception as e:
-
 
                 st.error(
                     "Prediction failed: " + str(e)
@@ -1331,42 +1171,28 @@ components.html(
         <style>
 
             body {
-
                 margin: 0;
-
                 background: transparent;
-
                 font-family: "Inter", sans-serif;
-
                 color: white;
             }
 
-
             .heading {
-
                 text-align: center;
-
                 padding:
                     25px
                     0
                     22px;
             }
 
-
             .title {
-
                 font-size: 25px;
-
                 font-weight: 800;
             }
 
-
             .subtitle {
-
                 color: #7f8ba1;
-
                 font-size: 11px;
-
                 margin-top: 8px;
             }
 
@@ -1374,25 +1200,19 @@ components.html(
 
     </head>
 
-
     <body>
 
-
         <div class="heading">
-
 
             <div class="title">
                 About The Application
             </div>
 
-
             <div class="subtitle">
                 Built as an end-to-end Deep Learning project
             </div>
 
-
         </div>
-
 
     </body>
 
@@ -1439,7 +1259,6 @@ def create_info_card(
                     color: white;
                 }}
 
-
                 .card {{
 
                     min-height: 180px;
@@ -1460,14 +1279,12 @@ def create_info_card(
                         rgba(0,0,0,0.15);
                 }}
 
-
                 .icon {{
 
                     font-size: 25px;
 
                     margin-bottom: 15px;
                 }}
-
 
                 .title {{
 
@@ -1477,7 +1294,6 @@ def create_info_card(
 
                     margin-bottom: 9px;
                 }}
-
 
                 .description {{
 
@@ -1492,30 +1308,23 @@ def create_info_card(
 
         </head>
 
-
         <body>
 
-
             <div class="card">
-
 
                 <div class="icon">
                     {icon}
                 </div>
 
-
                 <div class="title">
                     {title}
                 </div>
-
 
                 <div class="description">
                     {description}
                 </div>
 
-
             </div>
-
 
         </body>
 
@@ -1593,7 +1402,6 @@ components.html(
                 color: white;
             }
 
-
             .developer {
 
                 margin-top: 32px;
@@ -1624,11 +1432,6 @@ components.html(
                     rgba(0,0,0,0.20);
             }
 
-
-            /* =============================================
-               PROFILE IMAGE
-            ============================================== */
-
             .avatar {
 
                 width: 82px;
@@ -1658,7 +1461,6 @@ components.html(
                     );
             }
 
-
             .avatar img {
 
                 width: 100%;
@@ -1670,12 +1472,10 @@ components.html(
                 display: block;
             }
 
-
             .developer-content {
 
                 flex: 1;
             }
-
 
             .name {
 
@@ -1688,7 +1488,6 @@ components.html(
                 margin-bottom: 5px;
             }
 
-
             .role {
 
                 color: #8f9bb1;
@@ -1698,7 +1497,6 @@ components.html(
                 margin-bottom: 12px;
             }
 
-
             .tags {
 
                 display: flex;
@@ -1707,7 +1505,6 @@ components.html(
 
                 gap: 7px;
             }
-
 
             .tag {
 
@@ -1730,7 +1527,6 @@ components.html(
                 font-weight: 600;
             }
 
-
             @media(max-width:600px) {
 
                 .developer {
@@ -1751,76 +1547,56 @@ components.html(
 
     </head>
 
-
     <body>
 
-
         <div class="developer">
-
 
             <div class="avatar">
 
                 <img
                     src="https://drive.google.com/thumbnail?id=19aVKAKDDHHn04mqvXHZ7Sb6cHvvOJWCQ&sz=w500"
-                    alt="Divyadarshan Srivastava"
+                    alt="Developer"
                 >
 
             </div>
 
-
             <div class="developer-content">
 
-
                 <div class="name">
-
                     Divyadarshan Srivastava
-
                 </div>
-
 
                 <div class="role">
-
                     AI/ML Engineer • Deep Learning
-
                 </div>
 
-
                 <div class="tags">
-
 
                     <div class="tag">
                         Python
                     </div>
 
-
                     <div class="tag">
                         TensorFlow
                     </div>
-
 
                     <div class="tag">
                         CNN
                     </div>
 
-
                     <div class="tag">
                         Deep Learning
                     </div>
-
 
                     <div class="tag">
                         Streamlit
                     </div>
 
-
                 </div>
-
 
             </div>
 
-
         </div>
-
 
     </body>
 
@@ -1861,7 +1637,6 @@ components.html(
                 color: white;
             }
 
-
             .disclaimer {
 
                 margin-top: 25px;
@@ -1885,12 +1660,10 @@ components.html(
                 line-height: 1.75;
             }
 
-
             .disclaimer strong {
 
                 color: #fbbf24;
             }
-
 
             .footer {
 
@@ -1903,7 +1676,7 @@ components.html(
                 padding:
                     14px
                     10px
-                    14px;
+                    18px;
 
                 border-top:
                     1px solid
@@ -1914,10 +1687,7 @@ components.html(
                 font-size: 11px;
 
                 line-height: 1.5;
-
-                overflow: visible;
             }
-
 
             .footer-title {
 
@@ -1925,17 +1695,14 @@ components.html(
 
                 font-weight: 600;
 
-                margin-bottom: 5px;
+                margin-bottom: 7px;
 
                 white-space: normal;
             }
 
-
             .footer-credit {
 
                 display: block;
-
-                min-height: 22px;
 
                 color: #8f9bb1;
 
@@ -1945,9 +1712,8 @@ components.html(
 
                 line-height: 22px;
 
-                white-space: nowrap;
+                white-space: normal;
             }
-
 
             .footer-heart {
 
@@ -1958,7 +1724,6 @@ components.html(
                 padding:
                     0 3px;
             }
-
 
             .footer-name {
 
@@ -1971,22 +1736,13 @@ components.html(
 
     </head>
 
-
     <body>
 
-
-        <!-- ================================================
-             DISCLAIMER
-        ================================================= -->
-
-
         <div class="disclaimer">
-
 
             <strong>
                 ⚠️ Medical Disclaimer:
             </strong>
-
 
             This application is developed for educational and
             demonstration purposes only. The AI-generated
@@ -1994,17 +1750,10 @@ components.html(
             diagnosis or a substitute for professional medical
             advice, examination or treatment.
 
-
         </div>
 
 
-        <!-- ================================================
-             FOOTER
-        ================================================= -->
-
-
         <div class="footer">
-
 
             <div class="footer-title">
 
@@ -2014,27 +1763,28 @@ components.html(
 
             </div>
 
-
             <div class="footer-credit">
 
                 Made with
 
-                <span class="footer-heart">❤️</span>
+                <span class="footer-heart">
+                    ❤️
+                </span>
 
                 by
 
-                <span class="footer-name">Divyadarshan Srivastava</span>
+                <span class="footer-name">
+                    Divyadarshan Srivastava
+                </span>
 
             </div>
 
-
         </div>
-
 
     </body>
 
     </html>
     """,
-    height=145,
+    height=155,
     scrolling=False
 )
