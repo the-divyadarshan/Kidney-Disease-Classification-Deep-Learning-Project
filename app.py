@@ -1,17 +1,17 @@
-import os
 import json
 import streamlit as st
+import streamlit.components.v1 as components
 from PIL import Image
 
 from cnnClassifier.pipeline.prediction import PredictionPipeline
 
 
 # ============================================================
-# PAGE CONFIG
+# PAGE CONFIGURATION
 # ============================================================
 
 st.set_page_config(
-    page_title="KidneyVision AI",
+    page_title="KidneyVision AI | Kidney Disease Classification",
     page_icon="🧬",
     layout="wide",
     initial_sidebar_state="collapsed"
@@ -19,892 +19,1120 @@ st.set_page_config(
 
 
 # ============================================================
-# CSS
+# GLOBAL STREAMLIT CSS
 # ============================================================
 
-st.markdown("""
-<style>
+st.markdown(
+    """
+    <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
-* {
-    font-family: 'Inter', sans-serif;
-}
-
-html, body, [class*="css"] {
-    font-family: 'Inter', sans-serif;
-}
-
-.stApp {
-    background:
-        radial-gradient(circle at 0% 0%, rgba(99,102,241,.18), transparent 30%),
-        radial-gradient(circle at 100% 0%, rgba(6,182,212,.12), transparent 30%),
-        #050914;
-    color: white;
-}
-
-.block-container {
-    max-width: 1140px !important;
-    padding-top: 25px !important;
-    padding-bottom: 30px !important;
-}
-
-header {
-    visibility: hidden;
-}
-
-#MainMenu {
-    visibility: hidden;
-}
-
-footer {
-    visibility: hidden;
-}
-
-
-/* ============================================================
-   NAVBAR
-   ============================================================ */
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0 20px 0;
-    border-bottom: 1px solid rgba(255,255,255,.07);
-    margin-bottom: 70px;
-}
-
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-
-.brand-logo {
-    width: 56px;
-    height: 56px;
-    border-radius: 17px;
-    background: linear-gradient(135deg,#6366f1,#8b5cf6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 27px;
-    box-shadow: 0 12px 35px rgba(99,102,241,.35);
-}
-
-.brand-name {
-    font-size: 22px;
-    font-weight: 800;
-    color: white;
-}
-
-.brand-name span {
-    color: #a5b4fc;
-}
-
-.status {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    color: #91a0b8;
-    font-size: 13px;
-}
-
-.status-dot {
-    width: 9px;
-    height: 9px;
-    background: #22c55e;
-    border-radius: 50%;
-    box-shadow: 0 0 15px rgba(34,197,94,.9);
-}
-
-
-/* ============================================================
-   HERO
-   ============================================================ */
-
-.hero {
-    text-align: center;
-    margin-bottom: 65px;
-}
-
-.hero-badge {
-    display: inline-block;
-    padding: 10px 18px;
-    border-radius: 50px;
-    border: 1px solid rgba(129,140,248,.35);
-    background: rgba(99,102,241,.06);
-    color: #a5b4fc;
-    font-size: 12px;
-    font-weight: 600;
-    margin-bottom: 28px;
-}
-
-.hero-title {
-    font-size: clamp(48px,6vw,76px);
-    line-height: 1.03;
-    letter-spacing: -4px;
-    font-weight: 800;
-    margin: 0;
-    color: white;
-}
-
-.gradient-text {
-    background: linear-gradient(
-        90deg,
-        #818cf8,
-        #a78bfa,
-        #22d3ee
+    @import url(
+        'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap'
     );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
 
-.hero-description {
-    max-width: 780px;
-    margin: 28px auto 0 auto;
-    color: #8f9bb1;
-    font-size: 14px;
-    line-height: 1.9;
-}
-
-.hero-tags {
-    margin-top: 25px;
-    display: flex;
-    justify-content: center;
-    gap: 9px;
-    flex-wrap: wrap;
-}
-
-.hero-tag {
-    padding: 8px 13px;
-    border-radius: 30px;
-    background: rgba(255,255,255,.035);
-    border: 1px solid rgba(255,255,255,.07);
-    color: #9da9bd;
-    font-size: 10px;
-}
-
-
-/* ============================================================
-   SECTION
-   ============================================================ */
-
-.section-title {
-    font-size: 21px;
-    font-weight: 700;
-    color: white;
-    margin-bottom: 7px;
-}
-
-.section-subtitle {
-    color: #8290a6;
-    font-size: 12px;
-    margin-bottom: 22px;
-}
-
-
-/* ============================================================
-   CARDS
-   ============================================================ */
-
-.card {
-    background:
-        linear-gradient(
-            145deg,
-            rgba(15,23,42,.76),
-            rgba(10,15,30,.58)
-        );
-
-    border: 1px solid rgba(255,255,255,.08);
-
-    border-radius: 21px;
-
-    padding: 27px;
-
-    min-height: 390px;
-
-    box-shadow:
-        0 20px 55px rgba(0,0,0,.20);
-}
-
-.step {
-    color: #818cf8;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.2px;
-    margin-bottom: 9px;
-}
-
-.card-title {
-    color: white;
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 7px;
-}
-
-.card-subtitle {
-    color: #8290a6;
-    font-size: 11px;
-    line-height: 1.7;
-}
-
-
-/* ============================================================
-   UPLOAD AREA
-   ============================================================ */
-
-.upload-area {
-    margin-top: 25px;
-    min-height: 170px;
-    border: 1px dashed rgba(129,140,248,.38);
-    border-radius: 17px;
-    background:
-        linear-gradient(
-            145deg,
-            rgba(99,102,241,.08),
-            rgba(6,182,212,.025)
-        );
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-}
-
-.upload-icon {
-    font-size: 38px;
-    margin-bottom: 12px;
-}
-
-.upload-title {
-    font-size: 14px;
-    font-weight: 700;
-    color: white;
-}
-
-.upload-text {
-    margin-top: 7px;
-    color: #78859b;
-    font-size: 10px;
-}
-
-
-/* ============================================================
-   STREAMLIT UPLOADER
-   ============================================================ */
-
-[data-testid="stFileUploader"] {
-    margin-top: -65px;
-    position: relative;
-    opacity: 0;
-}
-
-[data-testid="stFileUploaderDropzone"] {
-    min-height: 160px !important;
-    cursor: pointer !important;
-}
-
-
-/* ============================================================
-   IMAGE PREVIEW
-   ============================================================ */
-
-.preview-title {
-    margin-top: 15px;
-    margin-bottom: 10px;
-    color: #818cf8;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1px;
-}
-
-
-/* ============================================================
-   BUTTON
-   ============================================================ */
-
-.stButton {
-    margin-top: 25px;
-}
-
-.stButton button {
-    width: 100%;
-    height: 48px;
-    border: none !important;
-    border-radius: 13px !important;
-
-    background:
-        linear-gradient(
-            135deg,
-            #6366f1,
-            #8b5cf6,
-            #06b6d4
-        ) !important;
-
-    color: white !important;
-    font-size: 13px !important;
-    font-weight: 700 !important;
-
-    box-shadow:
-        0 10px 30px rgba(99,102,241,.25);
-}
-
-.stButton button:hover {
-    transform: translateY(-2px);
-    box-shadow:
-        0 15px 40px rgba(99,102,241,.38);
-}
-
-
-/* ============================================================
-   RESULT
-   ============================================================ */
-
-.result-box {
-    margin-top: 25px;
-    padding: 20px;
-    border-radius: 16px;
-
-    background: rgba(34,197,94,.05);
-
-    border:
-        1px solid rgba(34,197,94,.16);
-}
-
-.result-title {
-    color: #86efac;
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 10px;
-}
-
-.result-content {
-    color: #cbd5e1;
-    background: rgba(0,0,0,.25);
-    padding: 15px;
-    border-radius: 11px;
-    font-family: monospace;
-    font-size: 11px;
-    white-space: pre-wrap;
-}
-
-
-/* ============================================================
-   ABOUT
-   ============================================================ */
-
-.about {
-    text-align: center;
-    margin-top: 70px;
-    margin-bottom: 25px;
-}
-
-.about-title {
-    color: white;
-    font-size: 25px;
-    font-weight: 800;
-}
-
-.about-subtitle {
-    color: #7f8ba1;
-    font-size: 11px;
-    margin-top: 7px;
-}
-
-
-/* ============================================================
-   INFO CARDS
-   ============================================================ */
-
-.info-card {
-    min-height: 190px;
-    padding: 24px;
-    border-radius: 20px;
-
-    background: rgba(15,23,42,.58);
-
-    border:
-        1px solid rgba(255,255,255,.07);
-
-    box-shadow:
-        0 15px 40px rgba(0,0,0,.15);
-}
-
-.info-icon {
-    font-size: 27px;
-    margin-bottom: 15px;
-}
-
-.info-title {
-    color: white;
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 9px;
-}
-
-.info-text {
-    color: #7f8ba1;
-    font-size: 11px;
-    line-height: 1.75;
-}
-
-
-/* ============================================================
-   DEVELOPER
-   ============================================================ */
-
-.developer-card {
-    margin-top: 45px;
-
-    padding: 25px;
-
-    border-radius: 21px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 21px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(99,102,241,.09),
-            rgba(6,182,212,.045)
-        );
-
-    border:
-        1px solid rgba(129,140,248,.16);
-}
-
-.developer-photo {
-    width: 88px;
-    height: 88px;
-
-    min-width: 88px;
-
-    border-radius: 50%;
-
-    object-fit: cover;
-
-    border: 3px solid rgba(129,140,248,.65);
-
-    box-shadow:
-        0 8px 30px rgba(99,102,241,.35);
-}
-
-.developer-name {
-    color: white;
-    font-size: 20px;
-    font-weight: 800;
-}
-
-.developer-role {
-    color: #8f9bb1;
-    font-size: 12px;
-    margin-top: 5px;
-}
-
-.dev-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
-    margin-top: 13px;
-}
-
-.dev-tag {
-    padding: 6px 10px;
-    border-radius: 8px;
-    background: rgba(255,255,255,.045);
-    border: 1px solid rgba(255,255,255,.06);
-    color: #b8c3d6;
-    font-size: 9px;
-    font-weight: 600;
-}
-
-
-/* ============================================================
-   DISCLAIMER
-   ============================================================ */
-
-.disclaimer {
-    margin-top: 25px;
-
-    padding: 18px 20px;
-
-    border-radius: 15px;
-
-    background: rgba(245,158,11,.045);
-
-    border:
-        1px solid rgba(245,158,11,.14);
-
-    color: #8190a7;
-
-    font-size: 10px;
-
-    line-height: 1.8;
-}
-
-.disclaimer strong {
-    color: #fbbf24;
-}
-
-
-/* ============================================================
-   FOOTER
-   ============================================================ */
-
-.footer {
-    text-align: center;
-
-    margin-top: 35px;
-
-    padding:
-        30px
-        10px
-        45px;
-
-    border-top:
-        1px solid rgba(255,255,255,.07);
-
-    color: #68738a;
-
-    font-size: 11px;
-
-    line-height: 2;
-}
-
-.footer-main {
-    color: #aab5c8;
-    font-weight: 600;
-}
-
-.footer-love {
-    margin-top: 7px;
-}
-
-.heart {
-    color: #f472b6;
-    font-size: 17px;
-    padding: 0 3px;
-}
-
-.footer-name {
-    color: #a5b4fc;
-    font-weight: 700;
-}
-
-
-/* ============================================================
-   MOBILE
-   ============================================================ */
-
-@media(max-width: 700px) {
+    html, body, [class*="css"] {
+        font-family: "Inter", sans-serif;
+    }
+
+    .stApp {
+        background:
+            radial-gradient(
+                circle at 10% 10%,
+                rgba(99, 102, 241, 0.18),
+                transparent 30%
+            ),
+            radial-gradient(
+                circle at 90% 15%,
+                rgba(14, 165, 233, 0.13),
+                transparent 30%
+            ),
+            radial-gradient(
+                circle at 50% 90%,
+                rgba(168, 85, 247, 0.10),
+                transparent 35%
+            ),
+            #060914;
+    }
 
     .block-container {
-        padding-left: 18px !important;
-        padding-right: 18px !important;
+        max-width: 1180px;
+        padding-top: 0 !important;
+        padding-bottom: 30px !important;
     }
 
-    .navbar {
-        margin-bottom: 45px;
+    #MainMenu {
+        visibility: hidden;
     }
 
-    .model-status {
-        display: none;
+    header {
+        visibility: hidden;
     }
 
-    .brand-name {
-        font-size: 18px;
+    footer {
+        visibility: hidden;
     }
 
-    .hero-title {
-        font-size: 43px;
-        letter-spacing: -2px;
+    [data-testid="stFileUploader"] {
+        margin-top: 8px;
     }
 
-    .hero-description {
-        font-size: 12px;
+    [data-testid="stFileUploaderDropzone"] {
+        background: rgba(255, 255, 255, 0.025) !important;
+        border: 1px dashed rgba(129, 140, 248, 0.45) !important;
+        border-radius: 18px !important;
     }
 
-    .developer-card {
-        flex-direction: column;
-        text-align: center;
+    [data-testid="stFileUploaderDropzone"]:hover {
+        border-color: #818cf8 !important;
+        background: rgba(129, 140, 248, 0.04) !important;
     }
 
-    .dev-tags {
-        justify-content: center;
+    [data-testid="stFileUploaderDropzoneInstructions"] {
+        color: #a5b4fc !important;
     }
-}
 
-</style>
-""", unsafe_allow_html=True)
+    .stButton > button {
+        width: 100%;
+        min-height: 48px;
+
+        border-radius: 13px !important;
+
+        border: none !important;
+
+        color: white !important;
+
+        font-family: "Inter", sans-serif !important;
+
+        font-size: 13px !important;
+
+        font-weight: 700 !important;
+
+        background:
+            linear-gradient(
+                135deg,
+                #6366f1,
+                #8b5cf6,
+                #06b6d4
+            ) !important;
+
+        box-shadow:
+            0 10px 30px
+            rgba(99, 102, 241, 0.25) !important;
+
+        transition: all 0.25s ease !important;
+    }
+
+    .stButton > button:hover {
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 15px 35px
+            rgba(99, 102, 241, 0.35) !important;
+    }
+
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 
 # ============================================================
-# NAVBAR
-# ============================================================
-
-st.markdown("""
-<div class="navbar">
-
-    <div class="brand">
-
-        <div class="brand-logo">
-            🧬
-        </div>
-
-        <div class="brand-name">
-            Kidney<span>Vision</span> AI
-        </div>
-
-    </div>
-
-    <div class="status">
-
-        <div class="status-dot"></div>
-
-        Model Online
-
-    </div>
-
-</div>
-""", unsafe_allow_html=True)
-
-
-# ============================================================
-# HERO
-# ============================================================
-
-st.markdown("""
-<div class="hero">
-
-    <div class="hero-badge">
-        ✨ &nbsp; AI-Powered Medical Image Classification
-    </div>
-
-    <div class="hero-title">
-        Kidney Disease
-        <br>
-        <span class="gradient-text">
-            Classification
-        </span>
-    </div>
-
-    <div class="hero-description">
-        An end-to-end Deep Learning application powered by
-        Convolutional Neural Networks to analyze kidney images
-        and generate an AI-assisted classification result.
-    </div>
-
-    <div class="hero-tags">
-
-        <div class="hero-tag">
-            🧠 CNN Architecture
-        </div>
-
-        <div class="hero-tag">
-            🖼️ Computer Vision
-        </div>
-
-        <div class="hero-tag">
-            ⚡ Real-Time Prediction
-        </div>
-
-        <div class="hero-tag">
-            🔥 TensorFlow
-        </div>
-
-    </div>
-
-</div>
-""", unsafe_allow_html=True)
-
-
-# ============================================================
-# SECTION HEADER
-# ============================================================
-
-st.markdown("""
-<div class="section-title">
-    🔬 Kidney Image Analysis
-</div>
-
-<div class="section-subtitle">
-    Upload a kidney image and let the trained CNN model analyze it.
-</div>
-""", unsafe_allow_html=True)
-
-
-# ============================================================
-# LOAD MODEL
+# LOAD PREDICTION PIPELINE
 # ============================================================
 
 @st.cache_resource
-def get_classifier():
+def load_prediction_pipeline():
 
     filename = "inputImage.jpg"
 
-    return PredictionPipeline(filename)
+    classifier = PredictionPipeline(filename)
+
+    return classifier
 
 
 try:
 
-    classifier = get_classifier()
+    classifier = load_prediction_pipeline()
 
 except Exception as e:
 
-    st.error("Model loading failed.")
+    st.error("Unable to load the prediction pipeline.")
 
-    st.code(str(e))
+    st.write(str(e))
 
     st.stop()
 
 
 # ============================================================
-# TWO COLUMNS
+# NAVBAR + HERO SECTION
 # ============================================================
 
-left, right = st.columns(
-    2,
+components.html(
+    """
+    <!DOCTYPE html>
+
+    <html>
+
+    <head>
+
+        <meta charset="UTF-8">
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        >
+
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        >
+
+        <style>
+
+            * {
+                box-sizing: border-box;
+            }
+
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+
+                width: 100%;
+
+                background: transparent;
+
+                font-family: "Inter", sans-serif;
+
+                color: white;
+            }
+
+
+            /* ================================================
+               NAVBAR
+            ================================================= */
+
+            .navbar {
+
+                width: 100%;
+
+                min-height: 78px;
+
+                display: flex;
+
+                align-items: center;
+
+                justify-content: space-between;
+
+                border-bottom:
+                    1px solid
+                    rgba(255,255,255,0.07);
+
+            }
+
+
+            .brand {
+
+                display: flex;
+
+                align-items: center;
+
+                gap: 13px;
+            }
+
+
+            .brand-logo {
+
+                width: 46px;
+
+                height: 46px;
+
+                border-radius: 15px;
+
+                display: flex;
+
+                align-items: center;
+
+                justify-content: center;
+
+                font-size: 23px;
+
+                background:
+                    linear-gradient(
+                        135deg,
+                        #6366f1,
+                        #8b5cf6
+                    );
+
+                box-shadow:
+                    0 8px 30px
+                    rgba(99,102,241,0.35);
+            }
+
+
+            .brand-name {
+
+                font-size: 19px;
+
+                font-weight: 800;
+
+                letter-spacing: -0.5px;
+            }
+
+
+            .brand-name span {
+
+                color: #a5b4fc;
+            }
+
+
+            .status {
+
+                display: flex;
+
+                align-items: center;
+
+                gap: 9px;
+
+                color: #91a0b8;
+
+                font-size: 12px;
+            }
+
+
+            .status-dot {
+
+                width: 9px;
+
+                height: 9px;
+
+                border-radius: 50%;
+
+                background: #22c55e;
+
+                box-shadow:
+                    0 0 14px
+                    rgba(34,197,94,0.85);
+            }
+
+
+            /* ================================================
+               HERO
+            ================================================= */
+
+            .hero {
+
+                text-align: center;
+
+                padding:
+                    50px
+                    10px
+                    40px;
+            }
+
+
+            .hero-badge {
+
+                display: inline-flex;
+
+                align-items: center;
+
+                gap: 9px;
+
+                padding:
+                    10px
+                    17px;
+
+                border-radius: 50px;
+
+                border:
+                    1px solid
+                    rgba(129,140,248,0.32);
+
+                background:
+                    rgba(99,102,241,0.07);
+
+                color: #a5b4fc;
+
+                font-size: 12px;
+
+                font-weight: 600;
+
+                margin-bottom: 25px;
+            }
+
+
+            .hero-title {
+
+                margin: 0;
+
+                font-size:
+                    clamp(42px, 6vw, 72px);
+
+                line-height: 1.05;
+
+                letter-spacing: -3px;
+
+                font-weight: 800;
+            }
+
+
+            .gradient-text {
+
+                background:
+                    linear-gradient(
+                        90deg,
+                        #818cf8,
+                        #a78bfa,
+                        #22d3ee
+                    );
+
+                -webkit-background-clip: text;
+
+                -webkit-text-fill-color: transparent;
+            }
+
+
+            .hero-description {
+
+                max-width: 760px;
+
+                margin:
+                    24px auto 0;
+
+                color: #8f9bb1;
+
+                font-size: 14px;
+
+                line-height: 1.8;
+            }
+
+
+            /* ================================================
+               HERO TAGS
+            ================================================= */
+
+            .hero-tags {
+
+                display: flex;
+
+                justify-content: center;
+
+                align-items: center;
+
+                flex-wrap: wrap;
+
+                gap: 10px;
+
+                margin-top: 27px;
+            }
+
+
+            .hero-tag {
+
+                display: inline-flex;
+
+                align-items: center;
+
+                gap: 7px;
+
+                padding:
+                    8px 13px;
+
+                border-radius: 30px;
+
+                background:
+                    rgba(255,255,255,0.035);
+
+                border:
+                    1px solid
+                    rgba(255,255,255,0.07);
+
+                color: #9da9bd;
+
+                font-size: 10px;
+            }
+
+
+            .hero-tag i {
+
+                color: #818cf8;
+            }
+
+
+            /* ================================================
+               MOBILE
+            ================================================= */
+
+            @media(max-width: 700px) {
+
+                .navbar {
+
+                    padding:
+                        0 5px;
+                }
+
+                .brand-name {
+
+                    font-size: 16px;
+                }
+
+                .status {
+
+                    display: none;
+                }
+
+                .hero {
+
+                    padding-top: 40px;
+                }
+
+                .hero-title {
+
+                    font-size: 42px;
+
+                    letter-spacing: -2px;
+                }
+
+            }
+
+        </style>
+
+    </head>
+
+
+    <body>
+
+
+        <!-- ================================================
+             NAVBAR
+        ================================================= -->
+
+        <div class="navbar">
+
+
+            <div class="brand">
+
+                <div class="brand-logo">
+                    🧬
+                </div>
+
+
+                <div class="brand-name">
+
+                    Kidney<span>Vision</span> AI
+
+                </div>
+
+            </div>
+
+
+            <div class="status">
+
+                <span class="status-dot"></span>
+
+                Model Online
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ================================================
+             HERO
+        ================================================= -->
+
+        <section class="hero">
+
+
+            <div class="hero-badge">
+
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                AI-Powered Medical Image Classification
+
+            </div>
+
+
+            <div class="hero-title">
+
+                Kidney Disease
+
+                <br>
+
+                <span class="gradient-text">
+
+                    Classification
+
+                </span>
+
+            </div>
+
+
+            <div class="hero-description">
+
+                An end-to-end Deep Learning application powered by
+                Convolutional Neural Networks to analyze kidney images
+                and generate an AI-assisted classification result.
+
+            </div>
+
+
+            <div class="hero-tags">
+
+
+                <div class="hero-tag">
+
+                    <i class="fa-solid fa-brain"></i>
+
+                    CNN Architecture
+
+                </div>
+
+
+                <div class="hero-tag">
+
+                    <i class="fa-solid fa-image"></i>
+
+                    Computer Vision
+
+                </div>
+
+
+                <div class="hero-tag">
+
+                    <i class="fa-solid fa-bolt"></i>
+
+                    Real-Time Prediction
+
+                </div>
+
+
+                <div class="hero-tag">
+
+                    <i class="fa-solid fa-fire"></i>
+
+                    TensorFlow
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </body>
+
+    </html>
+    """,
+    height=450,
+    scrolling=False
+)
+
+
+# ============================================================
+# ANALYSIS HEADER
+# ============================================================
+
+components.html(
+    """
+    <!DOCTYPE html>
+
+    <html>
+
+    <head>
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        >
+
+        <style>
+
+            body {
+
+                margin: 0;
+
+                background: transparent;
+
+                font-family: "Inter", sans-serif;
+
+                color: white;
+            }
+
+
+            .header {
+
+                padding:
+                    8px
+                    0
+                    18px;
+            }
+
+
+            .title {
+
+                font-size: 19px;
+
+                font-weight: 700;
+
+                margin-bottom: 7px;
+            }
+
+
+            .subtitle {
+
+                color: #8290a6;
+
+                font-size: 11px;
+
+                line-height: 1.6;
+            }
+
+        </style>
+
+    </head>
+
+
+    <body>
+
+
+        <div class="header">
+
+
+            <div class="title">
+
+                🔬 Kidney Image Analysis
+
+            </div>
+
+
+            <div class="subtitle">
+
+                Upload a kidney image and let the trained CNN model analyze it.
+
+            </div>
+
+
+        </div>
+
+
+    </body>
+
+    </html>
+    """,
+    height=80,
+    scrolling=False
+)
+
+
+# ============================================================
+# MAIN TWO-COLUMN SECTION
+# ============================================================
+
+left_column, right_column = st.columns(
+    [1, 1],
     gap="large"
 )
 
 
 # ============================================================
-# LEFT
+# LEFT COLUMN
 # ============================================================
 
-with left:
+with left_column:
 
-    st.markdown("""
-    <div class="card">
 
-        <div class="step">
-            STEP 01
-        </div>
+    components.html(
+        """
+        <!DOCTYPE html>
 
-        <div class="card-title">
-            Upload Kidney Image
-        </div>
+        <html>
 
-        <div class="card-subtitle">
-            Select an image or drag and drop it here.
-        </div>
+        <head>
 
-        <div class="upload-area">
+            <link
+                href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+                rel="stylesheet"
+            >
 
-            <div class="upload-icon">
-                ☁️
+            <style>
+
+                body {
+
+                    margin: 0;
+
+                    background: transparent;
+
+                    font-family: "Inter", sans-serif;
+
+                    color: white;
+                }
+
+
+                .card {
+
+                    padding: 25px;
+
+                    border-radius: 20px;
+
+                    background:
+                        rgba(15,23,42,0.58);
+
+                    border:
+                        1px solid
+                        rgba(255,255,255,0.08);
+                }
+
+
+                .step {
+
+                    color: #818cf8;
+
+                    font-size: 10px;
+
+                    font-weight: 700;
+
+                    letter-spacing: 1px;
+
+                    margin-bottom: 9px;
+
+                    text-transform: uppercase;
+                }
+
+
+                .title {
+
+                    font-size: 18px;
+
+                    font-weight: 700;
+
+                    margin-bottom: 7px;
+                }
+
+
+                .subtitle {
+
+                    color: #7f8ba1;
+
+                    font-size: 11px;
+
+                    margin-bottom: 22px;
+                }
+
+
+                .upload-info {
+
+                    padding: 20px;
+
+                    border-radius: 17px;
+
+                    background:
+                        linear-gradient(
+                            135deg,
+                            rgba(99,102,241,0.09),
+                            rgba(6,182,212,0.04)
+                        );
+
+                    border:
+                        1px solid
+                        rgba(129,140,248,0.15);
+                }
+
+
+                .upload-icon {
+
+                    font-size: 29px;
+
+                    margin-bottom: 9px;
+                }
+
+
+                .upload-title {
+
+                    font-size: 14px;
+
+                    font-weight: 700;
+
+                    margin-bottom: 5px;
+                }
+
+
+                .upload-text {
+
+                    color: #7f8ba1;
+
+                    font-size: 11px;
+
+                    line-height: 1.6;
+                }
+
+            </style>
+
+        </head>
+
+
+        <body>
+
+
+            <div class="card">
+
+
+                <div class="step">
+                    Step 01
+                </div>
+
+
+                <div class="title">
+                    Upload Kidney Image
+                </div>
+
+
+                <div class="subtitle">
+                    Select an image or drag and drop it here.
+                </div>
+
+
+                <div class="upload-info">
+
+
+                    <div class="upload-icon">
+                        ☁️
+                    </div>
+
+
+                    <div class="upload-title">
+                        Choose your kidney image
+                    </div>
+
+
+                    <div class="upload-text">
+                        PNG, JPG or JPEG • Recommended medical image format
+                    </div>
+
+
+                </div>
+
+
             </div>
 
-            <div class="upload-title">
-                Choose your kidney image
-            </div>
 
-            <div class="upload-text">
-                PNG, JPG or JPEG
-                <br>
-                Recommended image format
-            </div>
+        </body>
 
-        </div>
+        </html>
+        """,
+        height=230,
+        scrolling=False
+    )
 
-    </div>
-    """, unsafe_allow_html=True)
 
+    # --------------------------------------------------------
+    # STREAMLIT UPLOADER
+    # --------------------------------------------------------
 
     uploaded_file = st.file_uploader(
-        "Upload",
+        "Upload Kidney Image",
         type=["jpg", "jpeg", "png"],
         label_visibility="collapsed"
     )
 
 
-    if uploaded_file:
+    # --------------------------------------------------------
+    # IMAGE PREVIEW
+    # --------------------------------------------------------
 
-        uploaded_image = Image.open(
-            uploaded_file
-        ).convert("RGB")
+    if uploaded_file is not None:
 
-        st.markdown(
-            '<div class="preview-title">IMAGE PREVIEW</div>',
-            unsafe_allow_html=True
-        )
+        image = Image.open(uploaded_file).convert("RGB")
 
         st.image(
-            uploaded_image,
+            image,
             use_container_width=True
         )
 
 
 # ============================================================
-# RIGHT
+# RIGHT COLUMN
 # ============================================================
 
-with right:
-
-    st.markdown("""
-    <div class="card">
-
-        <div class="step">
-            STEP 02
-        </div>
-
-        <div style="
-            font-size:38px;
-            margin-bottom:12px;
-        ">
-            🧠
-        </div>
-
-        <div class="card-title">
-            AI Prediction
-        </div>
-
-        <div class="card-subtitle">
-
-            Upload an image and click the analyze button
-            below to generate the classification result
-            using the trained CNN model.
-
-        </div>
-
-        <div style="
-            margin-top:20px;
-            color:#6f7d94;
-            font-size:11px;
-            line-height:1.8;
-        ">
-
-            The trained Deep Learning model processes
-            the uploaded kidney image and returns its
-            predicted classification.
-
-        </div>
-
-    </div>
-    """, unsafe_allow_html=True)
+with right_column:
 
 
-    if uploaded_file:
+    components.html(
+        """
+        <!DOCTYPE html>
 
-        analyze = st.button(
-            "🔍  Analyze Kidney Image"
-        )
+        <html>
 
-        if analyze:
+        <head>
+
+            <link
+                href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+                rel="stylesheet"
+            >
+
+            <style>
+
+                body {
+
+                    margin: 0;
+
+                    background: transparent;
+
+                    font-family: "Inter", sans-serif;
+
+                    color: white;
+                }
+
+
+                .card {
+
+                    min-height: 230px;
+
+                    padding: 25px;
+
+                    border-radius: 20px;
+
+                    background:
+                        linear-gradient(
+                            145deg,
+                            rgba(99,102,241,0.08),
+                            rgba(6,182,212,0.035)
+                        );
+
+                    border:
+                        1px solid
+                        rgba(129,140,248,0.14);
+                }
+
+
+                .step {
+
+                    color: #818cf8;
+
+                    font-size: 10px;
+
+                    font-weight: 700;
+
+                    letter-spacing: 1px;
+
+                    text-transform: uppercase;
+
+                    margin-bottom: 15px;
+                }
+
+
+                .icon {
+
+                    font-size: 32px;
+
+                    margin-bottom: 13px;
+                }
+
+
+                .title {
+
+                    font-size: 19px;
+
+                    font-weight: 700;
+
+                    margin-bottom: 9px;
+                }
+
+
+                .text {
+
+                    color: #7f8ba1;
+
+                    font-size: 11px;
+
+                    line-height: 1.8;
+                }
+
+            </style>
+
+        </head>
+
+
+        <body>
+
+
+            <div class="card">
+
+
+                <div class="step">
+                    Step 02
+                </div>
+
+
+                <div class="icon">
+                    🧠
+                </div>
+
+
+                <div class="title">
+                    AI Prediction
+                </div>
+
+
+                <div class="text">
+
+                    Upload an image and click the analyze button
+                    below to generate the classification result
+                    using the trained CNN model.
+
+                </div>
+
+
+            </div>
+
+
+        </body>
+
+        </html>
+        """,
+        height=230,
+        scrolling=False
+    )
+
+
+    # --------------------------------------------------------
+    # PREDICT BUTTON
+    # --------------------------------------------------------
+
+    if uploaded_file is not None:
+
+
+        if st.button(
+            "🔍  Analyze Kidney Image",
+            key="analyze_button"
+        ):
+
 
             try:
 
-                uploaded_image.save(
+
+                # ============================================
+                # SAVE IMAGE
+                # ============================================
+
+                image = Image.open(
+                    uploaded_file
+                ).convert("RGB")
+
+
+                image.save(
                     "inputImage.jpg",
                     format="JPEG"
                 )
+
+
+                # ============================================
+                # RUN MODEL
+                # ============================================
 
                 with st.spinner(
                     "Analyzing kidney image..."
@@ -912,6 +1140,115 @@ with right:
 
                     result = classifier.predict()
 
+
+                # ============================================
+                # SUCCESS RESULT CARD
+                # ============================================
+
+                components.html(
+                    """
+                    <!DOCTYPE html>
+
+                    <html>
+
+                    <head>
+
+                        <link
+                            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+                            rel="stylesheet"
+                        >
+
+                        <style>
+
+                            body {
+
+                                margin: 0;
+
+                                background: transparent;
+
+                                font-family: "Inter", sans-serif;
+
+                                color: white;
+                            }
+
+
+                            .result {
+
+                                margin-top: 16px;
+
+                                padding: 20px;
+
+                                border-radius: 18px;
+
+                                background:
+                                    rgba(34,197,94,0.055);
+
+                                border:
+                                    1px solid
+                                    rgba(34,197,94,0.18);
+                            }
+
+
+                            .heading {
+
+                                font-size: 15px;
+
+                                font-weight: 700;
+
+                                margin-bottom: 6px;
+                            }
+
+
+                            .text {
+
+                                color: #8290a6;
+
+                                font-size: 11px;
+
+                                line-height: 1.6;
+                            }
+
+                        </style>
+
+                    </head>
+
+
+                    <body>
+
+
+                        <div class="result">
+
+
+                            <div class="heading">
+
+                                ✅ Prediction Completed
+
+                            </div>
+
+
+                            <div class="text">
+
+                                The CNN model has successfully
+                                analyzed the uploaded kidney image.
+
+                            </div>
+
+
+                        </div>
+
+
+                    </body>
+
+                    </html>
+                    """,
+                    height=105,
+                    scrolling=False
+                )
+
+
+                # ============================================
+                # FORMAT RESULT
+                # ============================================
 
                 if isinstance(result, dict):
 
@@ -926,263 +1263,759 @@ with right:
                     result_text = str(result)
 
 
-                st.markdown(f"""
-                <div class="result-box">
+                # ============================================
+                # RESULT DISPLAY
+                # ============================================
 
-                    <div class="result-title">
-                        ✅ Prediction Completed
-                    </div>
+                st.markdown(
+                    f"""
+                    <div style="
+                        margin-top:10px;
+                        padding:18px;
+                        border-radius:15px;
 
-                    <div class="result-content">
-{result_text}
-                    </div>
+                        background:
+                            rgba(3,7,18,0.60);
 
-                </div>
-                """, unsafe_allow_html=True)
+                        border:
+                            1px solid
+                            rgba(255,255,255,0.07);
+
+                        color:#dbe4f5;
+
+                        font-family:
+                            monospace;
+
+                        font-size:12px;
+
+                        line-height:1.7;
+
+                        white-space:pre-wrap;
+
+                        overflow-x:auto;
+                    ">{result_text}</div>
+                    """,
+                    unsafe_allow_html=True
+                )
 
 
             except Exception as e:
 
+
                 st.error(
-                    f"Prediction failed: {e}"
+                    "Prediction failed: " + str(e)
                 )
 
-    else:
 
-        st.markdown("""
-        <div style="
-            margin-top:25px;
-            padding:17px;
-            border-radius:13px;
-            background:rgba(255,255,255,.025);
-            border:1px solid rgba(255,255,255,.05);
-            color:#65738b;
-            font-size:10px;
-            text-align:center;
-        ">
-            Upload an image to activate AI prediction.
+# ============================================================
+# ABOUT SECTION HEADER
+# ============================================================
+
+st.write("")
+st.write("")
+
+
+components.html(
+    """
+    <!DOCTYPE html>
+
+    <html>
+
+    <head>
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        >
+
+        <style>
+
+            body {
+
+                margin: 0;
+
+                background: transparent;
+
+                font-family: "Inter", sans-serif;
+
+                color: white;
+            }
+
+
+            .heading {
+
+                text-align: center;
+
+                padding:
+                    25px
+                    0
+                    22px;
+            }
+
+
+            .title {
+
+                font-size: 25px;
+
+                font-weight: 800;
+            }
+
+
+            .subtitle {
+
+                color: #7f8ba1;
+
+                font-size: 11px;
+
+                margin-top: 8px;
+            }
+
+        </style>
+
+    </head>
+
+
+    <body>
+
+
+        <div class="heading">
+
+
+            <div class="title">
+                About The Application
+            </div>
+
+
+            <div class="subtitle">
+                Built as an end-to-end Deep Learning project
+            </div>
+
+
         </div>
-        """, unsafe_allow_html=True)
+
+
+    </body>
+
+    </html>
+    """,
+    height=100,
+    scrolling=False
+)
 
 
 # ============================================================
-# ABOUT
+# INFORMATION CARD FUNCTION
 # ============================================================
 
-st.markdown("""
-<div class="about">
+def create_info_card(
+    icon,
+    title,
+    description
+):
 
-    <div class="about-title">
-        About The Application
-    </div>
+    components.html(
+        f"""
+        <!DOCTYPE html>
 
-    <div class="about-subtitle">
-        Built as an end-to-end Deep Learning project
-    </div>
+        <html>
 
-</div>
-""", unsafe_allow_html=True)
+        <head>
 
+            <link
+                href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+                rel="stylesheet"
+            >
 
-# ============================================================
-# INFO CARDS
-# ============================================================
+            <style>
 
-c1, c2, c3 = st.columns(3, gap="medium")
+                body {{
 
+                    margin: 0;
 
-with c1:
+                    background: transparent;
 
-    st.markdown("""
-    <div class="info-card">
+                    font-family: "Inter", sans-serif;
 
-        <div class="info-icon">
-            🧠
-        </div>
-
-        <div class="info-title">
-            Deep Learning Model
-        </div>
-
-        <div class="info-text">
-            The application uses a Convolutional Neural
-            Network trained to classify kidney images.
-        </div>
-
-    </div>
-    """, unsafe_allow_html=True)
+                    color: white;
+                }}
 
 
-with c2:
+                .card {{
 
-    st.markdown("""
-    <div class="info-card">
+                    min-height: 180px;
 
-        <div class="info-icon">
-            ⚡
-        </div>
+                    padding: 24px;
 
-        <div class="info-title">
-            Real-Time Analysis
-        </div>
+                    border-radius: 20px;
 
-        <div class="info-text">
-            Upload an image and receive the model
-            classification directly through the application.
-        </div>
+                    background:
+                        rgba(15,23,42,0.58);
 
-    </div>
-    """, unsafe_allow_html=True)
+                    border:
+                        1px solid
+                        rgba(255,255,255,0.07);
 
-
-with c3:
-
-    st.markdown("""
-    <div class="info-card">
-
-        <div class="info-icon">
-            🚀
-        </div>
-
-        <div class="info-title">
-            End-to-End Project
-        </div>
-
-        <div class="info-text">
-            Designed as an end-to-end Deep Learning project
-            covering training, prediction and deployment.
-        </div>
-
-    </div>
-    """, unsafe_allow_html=True)
+                    box-shadow:
+                        0 15px 40px
+                        rgba(0,0,0,0.15);
+                }}
 
 
-# ============================================================
-# DEVELOPER
-# ============================================================
+                .icon {{
 
-photo_path = "assets/divyadarshan.jpg"
+                    font-size: 25px;
 
-if os.path.exists(photo_path):
+                    margin-bottom: 15px;
+                }}
 
-    with open(photo_path, "rb") as image_file:
 
-        import base64
+                .title {{
 
-        encoded_image = base64.b64encode(
-            image_file.read()
-        ).decode()
+                    font-size: 14px;
 
-    photo_src = (
-        "data:image/jpeg;base64,"
-        + encoded_image
+                    font-weight: 700;
+
+                    margin-bottom: 9px;
+                }}
+
+
+                .description {{
+
+                    color: #7f8ba1;
+
+                    font-size: 11px;
+
+                    line-height: 1.75;
+                }}
+
+            </style>
+
+        </head>
+
+
+        <body>
+
+
+            <div class="card">
+
+
+                <div class="icon">
+                    {icon}
+                </div>
+
+
+                <div class="title">
+                    {title}
+                </div>
+
+
+                <div class="description">
+                    {description}
+                </div>
+
+
+            </div>
+
+
+        </body>
+
+        </html>
+        """,
+        height=190,
+        scrolling=False
     )
 
-else:
 
-    photo_src = (
-        "https://drive.google.com/thumbnail"
-        "?id=19aVKAKDDHHn04mqvXHZ7Sb6cHvvOJWCQ"
-        "&sz=w300"
+# ============================================================
+# INFORMATION CARDS
+# ============================================================
+
+info_col1, info_col2, info_col3 = st.columns(
+    3,
+    gap="medium"
+)
+
+
+with info_col1:
+
+    create_info_card(
+        "🧠",
+        "Deep Learning Model",
+        "The application uses a Convolutional Neural Network trained to classify kidney images."
     )
 
 
-st.markdown(f"""
-<div class="developer-card">
+with info_col2:
 
-    <img
-        class="developer-photo"
-        src="{photo_src}"
-        alt="Divyadarshan Srivastava"
-    >
+    create_info_card(
+        "⚡",
+        "Real-Time Analysis",
+        "Upload an image and receive the model classification directly through the interactive application."
+    )
 
-    <div>
 
-        <div class="developer-name">
-            Divyadarshan Srivastava
+with info_col3:
+
+    create_info_card(
+        "🚀",
+        "End-to-End Project",
+        "Designed as an end-to-end Deep Learning project covering training, prediction and deployment."
+    )
+
+
+# ============================================================
+# DEVELOPER SECTION
+# ============================================================
+
+components.html(
+    """
+    <!DOCTYPE html>
+
+    <html>
+
+    <head>
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        >
+
+        <style>
+
+            body {
+
+                margin: 0;
+
+                background: transparent;
+
+                font-family: "Inter", sans-serif;
+
+                color: white;
+            }
+
+
+            .developer {
+
+                margin-top: 32px;
+
+                padding: 24px;
+
+                border-radius: 20px;
+
+                display: flex;
+
+                align-items: center;
+
+                gap: 20px;
+
+                background:
+                    linear-gradient(
+                        135deg,
+                        rgba(99,102,241,0.09),
+                        rgba(6,182,212,0.045)
+                    );
+
+                border:
+                    1px solid
+                    rgba(129,140,248,0.15);
+
+                box-shadow:
+                    0 15px 40px
+                    rgba(0,0,0,0.20);
+            }
+
+
+            /* =============================================
+               PROFILE IMAGE
+            ============================================== */
+
+            .avatar {
+
+                width: 82px;
+
+                height: 82px;
+
+                min-width: 82px;
+
+                border-radius: 50%;
+
+                overflow: hidden;
+
+                border:
+                    3px solid
+                    rgba(129,140,248,0.60);
+
+                box-shadow:
+                    0 8px 25px
+                    rgba(99,102,241,0.30);
+
+                background:
+                    linear-gradient(
+                        135deg,
+                        #6366f1,
+                        #8b5cf6,
+                        #06b6d4
+                    );
+            }
+
+
+            .avatar img {
+
+                width: 100%;
+
+                height: 100%;
+
+                object-fit: cover;
+
+                display: block;
+            }
+
+
+            .developer-content {
+
+                flex: 1;
+            }
+
+
+            .name {
+
+                font-size: 18px;
+
+                font-weight: 800;
+
+                color: #ffffff;
+
+                margin-bottom: 5px;
+            }
+
+
+            .role {
+
+                color: #8f9bb1;
+
+                font-size: 12px;
+
+                margin-bottom: 12px;
+            }
+
+
+            .tags {
+
+                display: flex;
+
+                flex-wrap: wrap;
+
+                gap: 7px;
+            }
+
+
+            .tag {
+
+                padding:
+                    6px 10px;
+
+                border-radius: 8px;
+
+                background:
+                    rgba(255,255,255,0.045);
+
+                border:
+                    1px solid
+                    rgba(255,255,255,0.06);
+
+                color: #b8c3d6;
+
+                font-size: 9px;
+
+                font-weight: 600;
+            }
+
+
+            @media(max-width:600px) {
+
+                .developer {
+
+                    flex-direction: column;
+
+                    text-align: center;
+                }
+
+                .tags {
+
+                    justify-content: center;
+                }
+
+            }
+
+        </style>
+
+    </head>
+
+
+    <body>
+
+
+        <div class="developer">
+
+
+            <div class="avatar">
+
+                <img
+                    src="https://drive.google.com/uc?export=view&id=19aVKAKDDHHn04mqvXHZ7Sb6cHvvOJWCQ"
+                    alt="Divyadarshan Srivastava"
+                >
+
+            </div>
+
+
+            <div class="developer-content">
+
+
+                <div class="name">
+
+                    Divyadarshan Srivastava
+
+                </div>
+
+
+                <div class="role">
+
+                    AI/ML Engineer • Deep Learning
+
+                </div>
+
+
+                <div class="tags">
+
+
+                    <div class="tag">
+                        Python
+                    </div>
+
+
+                    <div class="tag">
+                        TensorFlow
+                    </div>
+
+
+                    <div class="tag">
+                        CNN
+                    </div>
+
+
+                    <div class="tag">
+                        Deep Learning
+                    </div>
+
+
+                    <div class="tag">
+                        Streamlit
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
         </div>
 
-        <div class="developer-role">
-            AI/ML Engineer • Deep Learning
+
+    </body>
+
+    </html>
+    """,
+    height=155,
+    scrolling=False
+)
+
+
+# ============================================================
+# DISCLAIMER + FOOTER
+# ============================================================
+
+components.html(
+    """
+    <!DOCTYPE html>
+
+    <html>
+
+    <head>
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        >
+
+        <style>
+
+            body {
+
+                margin: 0;
+
+                background: transparent;
+
+                font-family: "Inter", sans-serif;
+
+                color: white;
+            }
+
+
+            .disclaimer {
+
+                margin-top: 25px;
+
+                padding:
+                    17px 20px;
+
+                border-radius: 14px;
+
+                background:
+                    rgba(245,158,11,0.045);
+
+                border:
+                    1px solid
+                    rgba(245,158,11,0.13);
+
+                color: #818ca0;
+
+                font-size: 10px;
+
+                line-height: 1.75;
+            }
+
+
+            .disclaimer strong {
+
+                color: #fbbf24;
+            }
+
+
+            .footer {
+
+                text-align: center;
+
+                margin-top: 32px;
+
+                padding:
+                    25px 10px
+                    28px;
+
+                border-top:
+                    1px solid
+                    rgba(255,255,255,0.07);
+
+                color: #68738a;
+
+                font-size: 11px;
+
+                line-height: 2;
+            }
+
+
+            .footer-title {
+
+                color: #aab5c8;
+
+                font-weight: 600;
+
+                margin-bottom: 3px;
+            }
+
+
+            .footer-heart {
+
+                color: #f472b6;
+
+                font-size: 15px;
+
+                padding:
+                    0 3px;
+            }
+
+
+            .footer-name {
+
+                color: #a5b4fc;
+
+                font-weight: 700;
+            }
+
+        </style>
+
+    </head>
+
+
+    <body>
+
+
+        <!-- ================================================
+             DISCLAIMER
+        ================================================= -->
+
+
+        <div class="disclaimer">
+
+
+            <strong>
+                ⚠️ Medical Disclaimer:
+            </strong>
+
+
+            This application is developed for educational and
+            demonstration purposes only. The AI-generated
+            classification should not be considered a medical
+            diagnosis or a substitute for professional medical
+            advice, examination or treatment.
+
+
         </div>
 
-        <div class="dev-tags">
 
-            <span class="dev-tag">
-                Python
-            </span>
+        <!-- ================================================
+             FOOTER
+        ================================================= -->
 
-            <span class="dev-tag">
-                TensorFlow
-            </span>
 
-            <span class="dev-tag">
-                CNN
-            </span>
+        <div class="footer">
 
-            <span class="dev-tag">
-                Deep Learning
-            </span>
 
-            <span class="dev-tag">
-                Streamlit
-            </span>
+            <div class="footer-title">
+
+                KidneyVision AI
+                &nbsp; • &nbsp;
+                Deep Learning Kidney Disease Classification
+
+            </div>
+
+
+            <div>
+
+                Made with
+
+                <span class="footer-heart">
+                    ♥
+                </span>
+
+                by
+
+                <span class="footer-name">
+
+                    Divyadarshan Srivastava
+
+                </span>
+
+            </div>
+
 
         </div>
 
-    </div>
 
-</div>
-""", unsafe_allow_html=True)
+    </body>
 
-
-# ============================================================
-# DISCLAIMER
-# ============================================================
-
-st.markdown("""
-<div class="disclaimer">
-
-    <strong>⚠️ Medical Disclaimer:</strong>
-
-    This application is developed for educational and
-    demonstration purposes only. The AI-generated
-    classification should not be considered a medical
-    diagnosis or a substitute for professional medical
-    advice, examination or treatment.
-
-</div>
-""", unsafe_allow_html=True)
-
-
-# ============================================================
-# FOOTER
-# ============================================================
-
-st.markdown("""
-<div class="footer">
-
-    <div class="footer-main">
-
-        KidneyVision AI
-        &nbsp; • &nbsp;
-        Deep Learning Kidney Disease Classification
-
-    </div>
-
-    <div class="footer-love">
-
-        Made with
-
-        <span class="heart">♥</span>
-
-        by
-
-        <span class="footer-name">
-            Divyadarshan Srivastava
-        </span>
-
-    </div>
-
-</div>
-""", unsafe_allow_html=True)
+    </html>
+    """,
+    height=195,
+    scrolling=False
+)
