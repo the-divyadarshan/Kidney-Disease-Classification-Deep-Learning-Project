@@ -2002,15 +2002,13 @@ components.html(
                 Made with
 
                 <span class="footer-heart">
-                    ♥
+                    ❤️
                 </span>
 
                 by
 
                 <span class="footer-name">
-
                     Divyadarshan Srivastava
-
                 </span>
 
             </div>
