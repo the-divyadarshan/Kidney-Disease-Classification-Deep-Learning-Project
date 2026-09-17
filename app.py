@@ -1761,7 +1761,7 @@ components.html(
             <div class="avatar">
 
                 <img
-                    src="https://drive.google.com/uc?export=view&id=19aVKAKDDHHn04mqvXHZ7Sb6cHvvOJWCQ"
+                    src="https://drive.google.com/thumbnail?id=19aVKAKDDHHn04mqvXHZ7Sb6cHvvOJWCQ&sz=w500"
                     alt="Divyadarshan Srivastava"
                 >
 
@@ -1894,13 +1894,16 @@ components.html(
 
             .footer {
 
+                width: 100%;
+
                 text-align: center;
 
-                margin-top: 32px;
+                margin-top: 26px;
 
                 padding:
-                    25px 10px
-                    28px;
+                    18px
+                    10px
+                    20px;
 
                 border-top:
                     1px solid
@@ -1910,7 +1913,9 @@ components.html(
 
                 font-size: 11px;
 
-                line-height: 2;
+                line-height: 1.7;
+
+                overflow: visible;
             }
 
 
@@ -1920,7 +1925,9 @@ components.html(
 
                 font-weight: 600;
 
-                margin-bottom: 3px;
+                margin-bottom: 6px;
+
+                white-space: normal;
             }
 
 
@@ -2016,6 +2023,6 @@ components.html(
 
     </html>
     """,
-    height=195,
+    height=170,
     scrolling=False
 )
