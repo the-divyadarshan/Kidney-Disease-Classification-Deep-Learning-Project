@@ -1898,22 +1898,22 @@ components.html(
 
                 text-align: center;
 
-                margin-top: 26px;
+                margin-top: 18px;
 
                 padding:
-                    18px
+                    14px
                     10px
-                    20px;
+                    14px;
 
                 border-top:
                     1px solid
                     rgba(255,255,255,0.07);
 
-                color: #68738a;
+                color: #8f9bb1;
 
                 font-size: 11px;
 
-                line-height: 1.7;
+                line-height: 1.5;
 
                 overflow: visible;
             }
@@ -1925,9 +1925,27 @@ components.html(
 
                 font-weight: 600;
 
-                margin-bottom: 6px;
+                margin-bottom: 5px;
 
                 white-space: normal;
+            }
+
+
+            .footer-credit {
+
+                display: block;
+
+                min-height: 22px;
+
+                color: #8f9bb1;
+
+                font-size: 11px;
+
+                font-weight: 500;
+
+                line-height: 22px;
+
+                white-space: nowrap;
             }
 
 
@@ -1997,19 +2015,15 @@ components.html(
             </div>
 
 
-            <div>
+            <div class="footer-credit">
 
                 Made with
 
-                <span class="footer-heart">
-                    ❤️
-                </span>
+                <span class="footer-heart">❤️</span>
 
                 by
 
-                <span class="footer-name">
-                    Divyadarshan Srivastava
-                </span>
+                <span class="footer-name">Divyadarshan Srivastava</span>
 
             </div>
 
@@ -2021,6 +2035,6 @@ components.html(
 
     </html>
     """,
-    height=170,
+    height=145,
     scrolling=False
 )
